@@ -1,0 +1,247 @@
+/* Min Width Media Queries */
+@media(min-width: 1200px) {
+    .login-page.login-page2{padding: 155px 0;}
+}
+
+
+@media(max-width:1365px)
+{
+    .client-overview .company-box.campaing-box .box .read-like a.read-more{font-size: 13px;}
+}
+
+@media(max-width:1199px)
+{
+    .navbar-nav .nav-item .nav-link{font-size: 16px;min-width: 150px;}
+    .header-right .header-right-link{font-size: 20px;    height: 45px;width: 45px;}
+    .header-right .dropdown-menu .dropdown-item{font-size: 16px;}
+    .navbar{padding-right: 32px;}
+    .login-page{padding: 100px 0 150px;}
+    .login-info {padding-left: 50px;max-width: 100%;}
+    .login-page .login-box h1,.signup-update-page .signup-update-main .signup-update-box h1{font-size: 36px;}
+    .login-page .login-box {padding: 100px 30px;}
+    .login-page .login-box h1 span,.signup-update-page .signup-update-main .signup-update-box h1 span {font-size: 26px;}
+    .login-page2 .login-box {padding-top: 70px;padding-bottom: 70px;}
+
+    h2{font-size: 28px;}
+    .sidebar-content .content h2{margin-bottom: 35px;}
+    .login-info ul li{font-size: 17px;margin-bottom: 25px;}
+    .company-box .box .box-top h4{font-size: 15px;}
+    .company-box .box .box-top{    padding: 15px 20px;}
+    .company-box .box .box-bottom {padding: 20px 20px;}
+    .company-box{flex-wrap: wrap;}
+    .company-box .box-outer{flex: 0 0 25%;max-width: 25%;margin-bottom: 30px;}
+    .news-box .news-swiper h4{font-size: 16px;}
+
+    .sales .tabbing-search-head .search-header {width: 300px !important;}
+    .company-box .box-single .box-single-bottom{padding: 40px 40px 10px;}
+    .company-box .box-single .box-single-top{padding: 40px;}
+    .company-box .box-single .box-single-bottom .single-box-contact li img{margin-right: 10px;max-height: 30px;}
+    .company-box .box-single .box-single-bottom .single-box-contact li p, .company-box .box-single .box-single-bottom .single-box-contact li a{font-size: 15px;}
+    .company-box .box-single .box-single-bottom .single-box-contact li .white-btn {min-width: 160px;}
+
+    .company-box .box-single.campaign-detail .edition{flex-direction: column;align-items: center;}
+    .company-box .box-single.campaign-detail .edition .edition-left{margin-bottom: 30px;}
+    .company-box .box-single.campaign-detail .edition .edition-left ul, .company-box .box-single.campaign-detail .edition .edition-right ul{justify-content: center;}
+    .sales .filter .search-header{    width: 300px !important;}
+    .client-overview .filter .filter-body .filter-left{padding-right: 0;}
+    .client-overview .company-box.campaing-box .box .box-bottom{    padding: 20px 15px;}
+    .client-overview .company-box.campaing-box .box .approved h5{font-size: 12px;line-height: normal;}
+
+    .new-campaign .annual-salary{flex: 0 0 50%;max-width: 50%;}
+    .modal-dialog h3{font-size: 22px;}
+    .client-information-popup .popup-box .client-name, .assessment-additional-popup .popup-box .client-name{font-size: 18px;}
+    .signup-update-page .signup-update-main .signup-update-box .box-bottom h2{font-size: 26px;}
+    .signup-update-page .signup-update-main .signup-update-box .box-bottom .sub-title{font-size: 16px;}
+
+}
+@media(max-width:1024px)
+{
+    /* .login-page
+    {
+        background-size: cover;height: 100vh;
+    } */
+    .tabbing-search-head .nav-pills .nav-item{margin-right: 13px;}
+}
+@media(max-width:991px)
+{
+    header nav .navbar-collapse {    padding: 25px 15px;height: calc(100% - 78px) !important;position: fixed;top: 78px;left: 0;right: 0;bottom: 0;z-index: 999;background-color: #fff;overflow-y: auto;}
+    header .navbar{padding: 15px 20px;}
+    main {margin-top: 78px;}
+    .white-btn{font-size: 16px !important;}
+    .navbar-nav .nav-item{margin: 0 0 20px;}
+    .navbar-nav .nav-item .nav-link{max-width: 250px;}
+    .header-right{align-items: center;}
+    .search-header input{width: 250px !important;}
+    .search-header i{font-size: 20px;}
+    .search-header{margin-top: 0 !important;margin-bottom: 0 !important;}
+
+    .login-page .login-box {padding: 70px 20px;}
+    .login-page .login-box h1 {font-size: 26px;    margin-bottom: 40px;}
+    .login-page.login-page2 .login-box h1{font-size: 36px;    margin-bottom: 30px;}
+    .login-page.login-page2 .login-box h1 span{    font-size: 26px;}
+    .login-page .login-box h1 span{font-size: 20px;}
+    .primary-btn{min-width: auto;max-width: 100%;    height: 55px;line-height: 55px;}
+    .login-info{padding-left: 20px;}
+    .login-info ul li{font-size: 16px;}
+    h2 {font-size: 24px;}
+    .login-page2 .login-box {padding-top: 50px;padding-bottom: 50px;}
+    .forget-remember{margin-bottom: 40px !important;}
+
+    .company-box .box-outer {flex: 0 0 33.33%;max-width: 33.33%;}
+    .news-box .news-swiper h4 {font-size: 15px;    margin-top: 20px;}
+    .sidebar-content .content{padding: 50px 20px;}
+    .comment-box{padding-right: 20px;}
+    .sidebar-content .content h2 {margin-bottom: 30px;}
+
+    .sales .tabbing-search-head{flex-wrap: wrap;}
+    .sales .tabbing-search-head .search-header{width: 100% !important;margin-top: 20px !important;}
+    .company-box .box-single .box-single-bottom .single-box-contact li{flex: 0 0 50%;max-width: 50%;}
+    .client-overview .filter .filter-body{flex-direction: column;}
+    .client-overview .filter .filter-body .filter-left{margin-bottom: 20px;}
+    .client-overview .filter .filter-body .filter-right{width: 100%;}
+    .sales .filter .search-header {width: 100% !important;}
+
+    .new-campaign{padding: 40px 30px;}
+    .new-campaign .annual-salary{flex: 0 0 100%;max-width: 100%;}
+    .new-campaign .form-group h5{line-height: normal;}
+    .new-campaign .new-campaign-search .search-btn img{width: 25px;}
+    .signup-update-page .signup-update-main .signup-update-box .box-bottom h2 {
+        font-size: 24px;
+    }
+    .popup .popup-box:first-child{padding-top: 50px;}
+    #sidebar{height: calc(100vh - 78px);}
+}
+
+@media(max-width:767px)
+{
+    .login-page{background-size: cover;}
+    .login-info{padding-left: 0;max-width: 100%;margin-top: 50px;}
+    .login-page .login-box h1 span,.signup-update-page .signup-update-main .signup-update-box h1 span {font-size: 24px;}
+    .login-page .login-box h1,.signup-update-page .signup-update-main .signup-update-box h1 {font-size: 32px;}
+    .login-page.login-page2 .login-box h1{font-size: 32px;}
+    .login-page.login-page2 .login-box h1 span {
+        font-size: 24px;
+    }
+    #sidebar{width: 100%;position: static;height: auto;}
+    .sidebar-content .content{width: 100%;margin-left: 0;}
+    #sidebar ul li {margin-bottom: 30px;}
+    .tabbing-search-head .nav-pills .nav-link{font-size: 16px;min-width: 130px;}
+    .tabbing-search-head .nav-pills .nav-item {margin-right: 15px;}
+    .sidebar-content .content.sales {padding-bottom: 50px;}
+    .setup-accordion .card{margin-bottom: 20px;}
+    .setup-accordion .card .card-body .form-group{margin-bottom: 15px;}
+    .setup-accordion .card .card-header{padding: 15px 25px 12px;}
+    .sidebar-content .content .add-more{margin-top: 40px;}
+    .company-box .box-single .box-single-top h4{font-size: 20px;}
+    .company-box .box-single .box-single-top p{font-size: 15px;}
+    .company-box .box-single.campaign-detail .edition{padding: 0 20px 30px;}
+    .new-campaign .new-campaign-search .search-btn img{width: 20px;}
+    .cart-popup .modal-dialog .cart-logo{width: 130px;height: 130px;}
+    .cart-popup .modal-dialog .cart-logo img{width: 70px;}
+    .grant-user-popup table.user-access tr td {padding: 7px;}
+    .client-information-popup .assessments{padding: 0;}
+    .assessment-additional-popup .assessments .cv-block-outer {flex: 0 0 33.33%;max-width: 33%;}
+    .client-information-popup .assessments .cv-block .cv-head h5, .assessment-additional-popup .assessments .cv-block .cv-head h5
+    {
+        font-size: 15px;
+    }
+    .assessment-additional-popup .search-header {width: 260px !important;}
+    .signup-update-page .signup-update-main .signup-update-box .box-top{padding-top: 50px;}
+    .signup-update-page .signup-update-main .signup-update-box .box-top {padding: 40px 20px 25px;}
+    .signup-update-page .signup-update-main .signup-update-box .box-bottom{padding-left: 30px;padding-right: 30px;}
+    .signup-update-page .signup-update-main .signup-update-box .box-bottom .sub-title{margin-top: 20px;}
+    .signup-update-page .signup-update-main .signup-update-box form .form-group {
+        margin-bottom: 15px;padding: 0 15px;
+    }
+    .form-control.job-title{min-height: 75px;}
+}
+@media(max-width:600px)
+{
+    .assessment-additional-popup .assessments .cv-block-outer {flex: 0 0 50%;max-width: 50%;}
+    .assessment-additional-popup .select-category-box .dropdown-menu ul {flex: 0 0 100%;max-width: 100%;}
+}
+
+@media(max-width:575px)
+{
+    .login-page {padding: 70px 0 130px;}
+    .login-info ul li {
+        font-size: 15px;
+        padding-left: 20px;
+    }
+    .company-box .box-outer {flex: 0 0 50%;max-width: 50%;}
+    .search-header .search-btn {right: 15px;}
+    .company-box .box-single .box-single-bottom .single-box-contact li{flex: 0 0 100%;max-width: 100%;}
+    .company-box .box-single .box-single-top {padding: 30px;}
+    .company-box .box-single .box-single-bottom {padding: 30px 30px 20px;}
+
+    .new-campaign .new-campaign-radio{flex-direction: column;}
+    .new-campaign .new-campaign-radio .new-campaign-radio-left{padding: 0;margin-bottom: 20px;}
+    .cart-popup .modal-dialog{max-width: 100%;}
+    .cart-popup table tr td{font-size: 14px;}
+    .cart-popup table tr.mobile-block td{width:100%;display: block;}
+    .cart-popup table tr.mobile-block td .white-btn{width: 100%;}
+    .popup .popup-box{padding:30px 20px}
+    .modal-dialog h3 {
+        font-size: 20px;
+    }
+    .comment-popup .comment-main li{padding: 20px;}
+    .modal-dialog .modal-header .close i{font-size: 25px;}
+    .client-information-popup .assessments .cv-block-outer{flex: 0 0 50%;max-width: 50%;}
+    .assessment-additional-popup .select-category-box{    flex-direction: column;align-items: center;padding: 20px;}
+    .assessment-additional-popup .search-header{    width: 100% !important;margin-top: 20px !important;}
+    .assessment-additional-popup .select-category-box .dropdown-menu{margin-top: 75px;}
+    .client-information-popup .popup-box .client-name, .assessment-additional-popup .popup-box .client-name{font-size: 17px;}
+    .form-control{font-size: 14px;}
+    .new-campaign .new-campaign-radio .new-campaign-radio-right{text-align: left;}
+}   
+
+@media(max-width:480px)
+{
+    .search-header{    width: 100%;margin: 0 0 20px !important;}
+    .search-header input{   width: 100% !important;}
+    .header-right{flex-wrap: wrap;}
+    .navbar-nav .nav-item .nav-link {max-width: 100%;width: 100%;}
+
+    .login-page .login-box h1,.signup-update-page .signup-update-main .signup-update-box h1{font-size: 28px;}
+    .login-page.login-page2 .login-box h1 {font-size: 28px;}
+    .login-page.login-page2 .login-box h1 span{font-size: 20px;}
+    .login-page .login-box h1 span,.signup-update-page .signup-update-main .signup-update-box h1 span {font-size: 20px;}
+    .primary-btn{    height: 50px;line-height: 50px;font-size: 18px;}
+    .form-control {height: 45px;line-height: 45px;}
+
+    .setup-accordion .card .card-body .upload-delete{flex-wrap: wrap;}
+    .setup-accordion .card .card-body {padding: 30px 20px 10px;}
+    .client-overview .tabbing-search-head .nav-pills .nav-item{width: 100%;margin-right: 0;}
+    .client-overview .filter .filter-body .filter-left ul{flex-direction: column;align-items: center;}
+    .client-overview .filter .filter-body .filter-left ul li{margin-bottom: 15px;}
+    .client-overview .filter .filter-body .filter-left ul li:last-child{margin-bottom: 0;}
+    .client-overview .filter .filter-body{padding: 20px;}
+    .setup-accordion .card .card-body .upload-delete select{width: 100%;}
+
+    .new-campaign {
+        padding: 40px 20px;
+    }
+    .client-information-popup .assessments .cv-block-outer{flex: 0 0 100%;max-width: 100%;}
+    .client-information-popup .buy-assessment-btn{margin: 40px 0 30px;}
+    .assessment-additional-popup .assessments .cv-block-outer {flex: 0 0 100%;max-width: 100%;}
+    .signup-update-page .signup-update-main .signup-update-box .box-bottom {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .signup-update-page .signup-update-main .signup-update-box form .form-group {
+        margin-bottom: 10px;
+    }
+}
+@media(max-width:380px)
+{
+    .login-page .login-box h1,.signup-update-page .signup-update-main .signup-update-box h1{font-size: 22px;}
+    .login-page .login-box h1 span, .signup-update-page .signup-update-main .signup-update-box h1 span {font-size: 16px;}
+    .login-page.login-page2 .login-box h1 {font-size: 22px;}
+    .login-page.login-page2 .login-box h1 span{font-size: 16px;}
+    .company-box .box-outer {flex: 0 0 100%;max-width: 100%;}
+    .company-box .box{width: 100%;}
+    .tabbing-search-head .nav-pills .nav-item{width: 100%;margin-right: 0;}
+    .sales .tabbing-search-head .nav-pills{width: 100%;}
+    .company-box .box .date-time{text-align: center;}
+    .setup-accordion .card .card-body .upload-delete .delete{width: 100%;margin-top: 20px;}
+}
