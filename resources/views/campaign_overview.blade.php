@@ -1034,8 +1034,8 @@
                         $('.candidate-assessment-additional-selected-category-name').text('Select a Category');  
                         // Category
                         $(document).find('.append-candidate-assessment-additional-category-data').html('');
-                        res.categoryData.map(function (section2) {
-                            // console.log(section2)
+                        Object.keys(res.categoryData).map(function (section2) {
+                             console.log(section2)
                             let item = ($(document).find('#caegories-list-candidate-assessment-additional-category-sec').clone()).show().removeAttr('id').attr('data-id', section2);
                             item.find('.candidate-category-name').text(section2);
                             $(document).find('.append-candidate-assessment-additional-category-data').append(item);
@@ -1062,7 +1062,7 @@
                     success: function (res) {
                         // console.log(res.purchasedBasketData.basket_lines);                            
                         $(document).find('.append-candidateassessmentadditional-data').html('');
-                        res.productData.map(function (section) {
+                        Object.keys(res.productData).map(function (section) {
                             let item = ($(document).find('#cv-block-candidateassessmentadditional-sec').clone()).show().removeAttr('id').attr('data-id', section.prid);
                             item.find('.cv-head-title').text(section.prdesc);
                             item.find('.cv-info-block-id').text(section.prcode);
@@ -1108,7 +1108,7 @@
                         $('.candidate-assessment-additional-selected-category-name').text('Select a Category'); 
                         // Category
                         $(document).find('.append-candidate-assessment-additional-category-data').html('');
-                        res.categoryData.map(function (section2) {
+                        Object.keys(res.categoryData).map(function (section2) {
                             // console.log(section2)
                             let item = ($(document).find('#caegories-list-candidate-assessment-additional-category-sec').clone()).show().removeAttr('id').attr('data-id', section2);
                             item.find('.candidate-category-name').text(section2);
@@ -1138,7 +1138,7 @@
                     success: function (res) {
                         // console.log(res);                            
                         $(document).find('.append-candidateassessmentadditional-data').html('');
-                        res.productData.map(function (section) {
+                        Object.keys(res.productData).map(function (section) {
                             let item = ($(document).find('#cv-block-candidateassessmentadditional-sec').clone()).show().removeAttr('id').attr('data-id', section.prid);
                             item.find('.cv-head-title').text(section.prdesc);
                             item.find('.cv-info-block-id').text(section.prcode);
@@ -1186,8 +1186,10 @@
 
                         // Category
                         $(document).find('.append-candidate-assessment-additional-category-data').html('');
-                        res.categoryData.map(function (section2) {
-                            // console.log(section2)
+                        
+                        Object.keys(res.categoryData).map(function (section2) {
+                         
+                         // console.log(section2)
                             let item = ($(document).find('#caegories-list-candidate-assessment-additional-category-sec').clone()).show().removeAttr('id').attr('data-id', section2);
                             item.find('.candidate-category-name').text(section2);
                             $(document).find('.append-candidate-assessment-additional-category-data').append(item);
@@ -1212,7 +1214,8 @@
                     success: function (res) {
                         console.log(res);     
                         $(document).find('.append-candidateassessmentadditional-data').html('');
-                        res.productData.map(function (section) {
+                    
+                        Object.keys(res.productData).map(function (section) {
                             let item = ($(document).find('#cv-block-candidateassessmentadditional-sec').clone()).show().removeAttr('id').attr('data-id', section.prid);
                             item.find('.cv-head-title').text(section.prdesc);
                             item.find('.cv-info-block-id').text(section.prcode);
@@ -1282,7 +1285,8 @@
                     console.log(res);
 
                         $(document).find('.append-candidateassessmentadditional-data').html('');
-                        res.productData.map(function (section) {
+                        
+                        Object.keys(res.productData).map(function (section) {
                             // console.log(section); 
                             let item = ($(document).find('#cv-block-candidateassessmentadditional-sec').clone()).show().removeAttr('id').attr('data-id', section.prid);
                             item.find('.cv-head-title').text(section.prdesc);
