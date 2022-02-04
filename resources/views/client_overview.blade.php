@@ -117,9 +117,7 @@
                             <div class="box-single">
                                 <div class="box-single-top">
                                     <h4>{{ $client->clname }}</h4>
-                                    <p>
-                                        {{ $client->clcompanydesc }}
-                                    </p>
+                                    <p style="white-space: pre-wrap;">{{ $client->clcompanydesc }}</p>
                                 </div>
                                 <div class="box-single-bottom">
                                     <ul class="single-box-contact">

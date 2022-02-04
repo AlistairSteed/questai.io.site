@@ -423,8 +423,8 @@
                                                 <span class="cv-id"></span>
                                             </div>
                                             <div class="cv-info-block">
-                                                <span>Score</span>
-                                                <span class="cv-score"></span>
+                                                <span class="cv-score-text"></span>
+                                                <span class="cv-score"> </span>
                                             </div>
                                         </div>
                                         <a class="cv-view candidate-attachment-link" id="attach-link" target="_blank">view</a>
@@ -457,6 +457,16 @@
 @section('scripts')
     <script>
         $(document).ready(function (){
+            Array.prototype.sortOn = function(key){
+                this.sort(function(a, b){
+                    if(a[key] < b[key]){
+                        return -1;
+                    }else if(a[key] > b[key]){
+                        return 1;
+                    }
+                    return 0;
+                });
+            }
             var campaignStatus = {{$campaignStatus}};
             if(campaignStatus == 4){
                 $('#approve-campaign').attr("style","color: #fff !important; background-color: #174b43 !important");
@@ -786,6 +796,7 @@
                         // console.log(res.comments);
                         $(document).find('.append-candidates').html('');
                         res.data.map(function (section) {   
+                            console.log(section);
                             let item = ($(document).find('#candidate-block').clone()).show().removeAttr('id').attr('data-id', section.caid);
                             item.find('.box').addClass(section.app_status);
                             item.find('.box').addClass(section.final_status_class);
@@ -799,17 +810,23 @@
                             if(section.final_status_class == 'bg-green'){
                                 item.find('.gsbtn').css("background-color", "#4f8d4a");
                                 item.find('.gsbtn').css("color", "#fff");                
-                                item.find('.application_status').css("background-color", "#4f8d4a");     
                             }else if(section.final_status_class == 'bg-amber'){
                                 item.find('.ysbtn').css("background-color", "#ffc52e");
                                 item.find('.ysbtn').css("color", "#fff");
-                                item.find('.application_status').css("background-color", "#ffc52e");   
                             }else if(section.final_status_class == 'bg-red'){
                                 item.find('.rsbtn').css("background-color", "#e73100");
                                 item.find('.rsbtn').css("color", "#fff");
+                            }
+                            if (section.caapplicationstatus == 0) {
+                                item.find('.application_status').css("background-color", "#b3b3b3");   
+                            } else if (section.caapplicationstatus == 1) {
+                                item.find('.application_status').css("background-color", "#4f8d4a");     
+
+                            } else if (section.caapplicationstatus == 5) {
+                                item.find('.application_status').css("background-color", "#ffc52e");   
+                            } else {
                                 item.find('.application_status').css("background-color", "#e73100");   
                             }
-
                             item.find('#candidateId').attr('data-id', section.caid);
                             item.find('#candidate_Id').attr('data-id', section.caid);
                             
@@ -840,7 +857,7 @@
                 if(status == 20){
                     var status_name = 'Accepted';
                 }else if(status == 35){
-                    var status_name = 'Good candidate Rejected';                    
+                    var status_name = 'Good Candidate Rejected';                    
                 }else if(status == 45){
                     var status_name = 'Rejected';                    
                 }
@@ -928,7 +945,13 @@
                             let item = ($(document).find('#cv-block-candidate-sec').clone()).show().removeAttr('id').attr('data-id', section.caid);
                             item.find('.cv-type').text(section.attitle);
                             item.find('.cv-id').text(section.atid);
-                            item.find('.cv-score').text(section.atscore + '%');   
+                            if (section.atscore > 0) {
+                                item.find('.cv-score').html(section.atscore + '%');   
+                                item.find('.cv-score-text').html('Score');   
+                            } else {
+                                item.find('.cv-score').html('&nbsp;');   
+                                item.find('.cv-score-text').html('&nbsp;');   
+                            }
                             if(section.atscoreset == 0){
                                 var statuscolor = 'green';
                             }else if(section.atscoreset == 5){
@@ -973,7 +996,7 @@
                     }
                 });
             })
-
+            
             $(".candidate-assessment-additional-remove-cart").addClass('d-none'); 
             $(".candidate-assessment-additional-reset-category-name").addClass('d-none');
             $(document).on('click', '#candidate_assessmentadditional', function (){
@@ -988,6 +1011,7 @@
                     success: function (res) {
                         // console.log(res.purchasedBasketData.basket_lines);                            
                         $(document).find('.append-candidateassessmentadditional-data').html('');
+                        console.log(res.productData);
                         res.productData.map(function (section) {
                             let item = ($(document).find('#cv-block-candidateassessmentadditional-sec').clone()).show().removeAttr('id').attr('data-id', section.prid);
                             item.find('.cv-head-title').text(section.prdesc);
@@ -1414,7 +1438,7 @@
 
                                         // Category
                                         $(document).find('.append-candidate-assessment-additional-category-data').html('');
-                                        res.categoryData.map(function (section2) {
+                                        Object.keys(res.categoryData).map(function (section2) {
                                             // console.log(section2)
                                             let item = ($(document).find('#caegories-list-candidate-assessment-additional-category-sec').clone()).show().removeAttr('id').attr('data-id', section2);
                                             item.find('.candidate-category-name').text(section2);
@@ -1508,7 +1532,7 @@
                         $('.campaign-assessment-additional-selected-category-name').text('Select a Category');  
                         // Category
                         $(document).find('.append-campaign-assessment-additional-category-data').html('');
-                        res.categoryData.map(function (section2) {
+                        Object.keys(res.categoryData).map(function (section2) {
                             // console.log(section2)
                             let item = ($(document).find('#caegories-list-campaign-assessment-additional-category-sec').clone()).show().removeAttr('id').attr('data-id', section2);
                             item.find('.campaign-category-name').text(section2);
@@ -1585,7 +1609,7 @@
                         $('.campaign-assessment-additional-selected-category-name').text('Select a Category');  
                         // Category
                         $(document).find('.append-campaign-assessment-additional-category-data').html('');
-                        res.categoryData.map(function (section2) {
+                        Object.keys(res.categoryData).map(function (section2) {
                             // console.log(section2)
                             let item = ($(document).find('#caegories-list-campaign-assessment-additional-category-sec').clone()).show().removeAttr('id').attr('data-id', section2);
                             item.find('.campaign-category-name').text(section2);
@@ -1666,7 +1690,7 @@
 
                         // Category
                         $(document).find('.append-campaign-assessment-additional-category-data').html('');
-                        res.categoryData.map(function (section2) {
+                        Object.keys(res.categoryData).map(function (section2) {
                             let item = ($(document).find('#caegories-list-campaign-assessment-additional-category-sec').clone()).show().removeAttr('id').attr('data-id', section2);
                             item.find('.campaign-category-name').text(section2);
                             $(document).find('.append-campaign-assessment-additional-category-data').append(item);

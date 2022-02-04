@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
-
+        Blade::withoutDoubleEncoding();
         Blade::directive('infoText', function ($name) {
             return "<?php echo app(App\Support\InfoTextHelper::class)->get($name); ?>";
         });

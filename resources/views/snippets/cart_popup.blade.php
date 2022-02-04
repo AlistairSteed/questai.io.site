@@ -69,7 +69,7 @@
                                     <p class="cartcheck1-msg"></p>
                                 </label>
                             </div>
-                            <a href="#" class="term-condition">Review our standard terms and conditions</a>
+                            <a href="/assets/terms-and-conditions.pdf" target="_blank" class="term-condition">Review our standard terms and conditions</a>
                         </div>
                     </div>
                     <div class="modal-footer popup-box">
