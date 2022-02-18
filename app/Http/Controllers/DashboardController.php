@@ -21,7 +21,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
-
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 class DashboardController extends Controller
 {
     /**
@@ -41,18 +42,35 @@ class DashboardController extends Controller
      */
     public function index()
     {        
-        $user = auth()->user();
+        $user = Auth::user();
+        $user_id = \Auth::id();
+        // $role = Role::create(['name' => 'super']);
+        // $role = Role::create(['name' => 'admin']);
+        // $role = Role::create(['name' => 'enterprise']);
+        // $role = Role::create(['name' => 'client']);
+        // $user->assignRole('super');
+        // $user->assignRole('admin');
         $clients = Client::where('clenterpriseid', enterpriseId())->get();
         $news_data = News::where('neenterpriseid', enterpriseId())->get();
-        return view('dashboard', compact('clients', 'news_data', 'user'));
+        return view('dashboard', compact('clients', 'news_data', 'user','user_id'));
     }
 
-    public function editProfile()
+    public function saconsole()
     {
         $user = auth()->user();
-        $enterprise = Enterprise::find(enterpriseId());
-        return view('profile_update', compact('user','enterprise'));
+        if ($user->hasRole(['super'])) {
+            return view('super_console', compact('user'));
+        }
     }
+    public function topadmin()
+    {
+        $user = Auth::user();
+        $user_id = \Auth::id();
+        if ($user_id == 40 || ($user_id >= 46 && $user_id <=49)) {
+            return view('top_admin', compact('user','user_id'));
+        }
+    }
+    
 
     public function updateProfile(Request $request)
     {

@@ -42,7 +42,21 @@
                         <a class="nav-link" href="{{ route('news.index') }}">Update News</a>
                     </li>
                     @endif
-
+                    @if (auth()->user()->hasRole('sudfper'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('saconsole') }}">Super Admin Console</a>
+                        </li>
+                    @endif
+                    @if (auth()->user()->hasRole('sudfper') || auth()->user()->hasRole('admghin'))
+                    <li class="nav-item">
+                            <a class="nav-link" href="{{ route('clients.index') }}">Create Client</a>
+                        </li>
+                    @endif
+                    @if ($user_id == 40 || ($user_id >= 46 && $user_id <=49))
+                    <li class="nav-item">
+                            <a class="nav-link" href="{{ route('topadmin') }}">Top Admin</a>
+                        </li>
+                    @endif
                 </ul>
                 <div class="header-right">
                     <!-- <form class="form-inline search-header my-2 my-lg-0">

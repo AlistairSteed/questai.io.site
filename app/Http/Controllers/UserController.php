@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     /**
@@ -34,19 +34,54 @@ class UserController extends Controller
      */
     public function index($client_id){
         $client = Client::findOrFailByEncryptedId($client_id);
-        $client_id = $client->clid;        
-        return view('users', compact('client_id','client'));
+        $client_id = $client->clid;
+        $user = Auth::user();
+        $user_id = \Auth::id();    
+        return view('users', compact('client_id','client','user_id'));
     }
 
     /**
      * @return \Illuminate\Http\JsonResponse
      * @description: Return all data of user
      */
-    public function indexAjax($client_id){
+    public function indexAjax($client_id,$user_id){
+        $user = Auth::user();
         try {
-            $users = User::with(['userAccess' => function ($query1) use ($client_id)  {
-                $query1->where('uaenterpriseid',enterpriseId())->where('uaclientid',$client_id)->where('uacampaignid',0);
-            }])->where('usclientid', $client_id)->orderBy('usid', 'asc')->get();
+            if ($user_id == 40 || ($user_id >= 46 && $user_id <=49)) {
+                $users = User::whereHas('roles', function ($query) {
+                    $query->where('name', '=', 'super');
+                })->orwhereHas('roles', function ($query) {
+                    $query->where('name', '=', 'admin');
+                })->orWhereHas('roles', function($query) {
+                    $query->where('name','=','enterprise');
+                })->orWhereHas('roles', function($query) {
+                    $query->where('name','=','client');
+                })->orWhereHas('roles', function($query) {
+                    $query->where('name','=','');
+                })->get();
+            } else if ($user->hasRole(['super'])) {
+                $users = User::whereHas('roles', function ($query) {
+                    $query->where('name', '=', 'admin');
+                })->orWhereHas('roles', function($query) {
+                    $query->where('name','=','enterprise');
+                })->orWhereHas('roles', function($query) {
+                    $query->where('name','=','client');
+                })->orWhereHas('roles', function($query) {
+                    $query->where('name','=','');
+                })->get();
+            } else if ($user->hasRole(['admin'])) {
+                $users = User::whereHas('roles', function($query) {
+                    $query->where('name','=','enterprise');
+                })->orWhereHas('roles', function($query) {
+                    $query->where('name','=','client');
+                })->orWhereHas('roles', function($query) {
+                    $query->where('name','=','');
+                })->get();
+            }
+
+            // $users = User::with(['userAccess' => function ($query1) use ($client_id)  {
+            //     $query1->where('uaenterpriseid',enterpriseId())->where('uaclientid',$client_id)->where('uacampaignid',0);
+            // }])->where('usclientid', $client_id)->orderBy('usid', 'asc')->get();
         } catch (\Exception $e) {
             Log::info('User setup index error => ' . $e->getMessage() . $e->getFile() . $e->getLine());
             return response()->json(['status' => 'error',
@@ -55,7 +90,12 @@ class UserController extends Controller
         }
         return response()->json(['status' => 'success', 'data' => $users], 200);
     }
-
+    public function clients(){
+        $user = auth()->user();
+        if ($user->hasRole(['super','admin','enterprise'])) {
+            return view('create_client');
+        }
+    }
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse

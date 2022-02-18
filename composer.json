@@ -14,11 +14,12 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "league/flysystem-aws-s3-v3": "~1.0",
-        "spatie/laravel-permission": "^5.3",
+        "mateusjunges/laravel-acl": "^3.0",
+        "spatie/laravel-permission": "^5.5",
         "stripe/stripe-php": "^7.97"
     },
     "require-dev": {
-        "facade/ignition": "^2.5",
+        "facade/ignition": "^2.17",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",

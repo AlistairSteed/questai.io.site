@@ -132,6 +132,13 @@
                     <div class="form-group col-lg-6">
                         <input type="password" class="form-control user-password" name="user_password" placeholder="password"/>
                     </div>
+                    <div class="form-group col-lg-6">
+                        <select class="form-control user-password">
+                            <option>Admin</option>
+                            <option>Enterprise</option>
+                            <option>Client</option>
+                        </select>
+                    </div>
                     
                     <div class="form-group col-lg-6">
                         <label class="checkbox green">
@@ -177,7 +184,7 @@
                 $("#overlay").fadeIn(300);　
                 $.ajax({
                     method: 'get',
-                    url: app_url + '/users/indexAjax/' + '{{ $client_id }}',
+                    url: app_url + '/users/indexAjax/' + '{{ $client_id }}'+'/'+'{{ $user_id}}',
                     success: function (res) {
                         res.data.map(function (section) {
                             console.log(section);

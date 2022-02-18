@@ -45,28 +45,30 @@ Route::get('/login-main', function () {
       return view('auth.login_main', compact('enterprise'));
     }
 });
+Route::get('saconsole', [DashboardController::class, 'saconsole'])->name('saconsole');
+Route::get('topadmin', [DashboardController::class, 'topadmin'])->name('topadmin');
 
 /*
   |--------------------------------------------------------------------------
   | Routes for Both Users Without Authentication
   |--------------------------------------------------------------------------
 */
-Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-Route::get('/password/reset/{ent}', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-Route::post('/password/reset', [ForgotPasswordController::class, 'reset'])->name('password.reset');
-Route::get('/password/reset/{token}/{enterpriseId}', [ForgotPasswordController::class, 'showResetForm'])->name('password_reset_submit');
-Route::get('/thankyou', [ForgotPasswordController::class, 'thankYou'])->name('thankyou');
+Route::post('/public/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{ent}', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/reset', [ForgotPasswordController::class, 'reset'])->name('password.reset');
+Route::get('password/reset/{token}/{enterpriseId}', [ForgotPasswordController::class, 'showResetForm'])->name('password_reset_submit');
+Route::get('thankyou', [ForgotPasswordController::class, 'thankYou'])->name('thankyou');
 
 //Webhooks Route
 
-Route::any('/stripe/webhook', [CheckoutController::class, 'webhook'])->name('stripe.webhook');
+Route::any('stripe/webhook', [CheckoutController::class, 'webhook'])->name('stripe.webhook');
 
-Route::any('/payment/success', [CheckoutController::class, 'paymentSuccess']);
+Route::any('payment/success', [CheckoutController::class, 'paymentSuccess']);
 //   session()->flash('status', 'Task was successful!');
 //    return redirect('/')->with('success','Your order has been successfully completed.');
 // });
 
-Route::any('/payment/cancelled', [CheckoutController::class, 'paymentCancel']);
+Route::any('payment/cancelled', [CheckoutController::class, 'paymentCancel']);
   // session()->flash('status', 'Task was successful!');
   //    return redirect('/')->with('success','You have to cancel your payment');
 // });
@@ -174,10 +176,14 @@ Route::group(['middleware' => 'auth'], function () {
    */
     Route::prefix('users')->group(function () {
         Route::get('/{client_id}', [UserController::class, 'index'])->name('users.index');
-        Route::get('indexAjax/{client_id}', [UserController::class, 'indexAjax'])->name('users.indexAjax');
+        Route::get('indexAjax/{client_id}/{user_id}', [UserController::class, 'indexAjax'])->name('users.indexAjax');
         Route::post('/store/{client_id}',  [UserController::class, 'store'])->name('users.store');
         Route::get('/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
     });
+    Route::prefix('clients')->group(function () {
+      Route::get('/', [UserController::class, 'clients'])->name('clients.index');
+      Route::get('/create', [UserController::class, 'clientscreate'])->name('clients.indexAjax');
+  });
 
     Route::get('attachment/file/{filename}', [CampaignController::class, 'fileResponse']);
 });
