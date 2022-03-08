@@ -42,17 +42,17 @@
                         <a class="nav-link" href="{{ route('news.index') }}">Update News</a>
                     </li>
                     @endif
-                    @if (auth()->user()->hasRole('sudfper'))
+                    @if (auth()->user()->hasRole('super'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('saconsole') }}">Super Admin Console</a>
                         </li>
                     @endif
-                    @if (auth()->user()->hasRole('sudfper') || auth()->user()->hasRole('admghin'))
+                    @if (auth()->user()->hasRole('super') || auth()->user()->hasRole('admin'))
                     <li class="nav-item">
                             <a class="nav-link" href="{{ route('clients.index') }}">Create Client</a>
                         </li>
                     @endif
-                    @if ($user_id == 40 || ($user_id >= 46 && $user_id <=49))
+                    @if ($user_id == 31 || $user_id == 40 || ($user_id >= 46 && $user_id <=49))
                     <li class="nav-item">
                             <a class="nav-link" href="{{ route('topadmin') }}">Top Admin</a>
                         </li>
@@ -93,6 +93,8 @@
             <nav id="sidebar">
                 <ul class="list-unstyled components">
                     <li class="active"> <a href="{{ route('client-selection') }}"><i class="fal fa-users"></i> Client selection</a> </li>
+                    <li> <a href="{{ route('users.index.ent', $enterprise->encrypted_id) }}"><i class="fal fa-users"></i> Users</a> </li>
+
                     <!-- <li> <a href="javascript:;"><i class="fas fa-bullhorn"></i> Campaigns</a> </li> -->
                 </ul>
             </nav>
@@ -125,7 +127,7 @@
                                 @foreach($news_data as $news)
                                 <div class="swiper-slide">
                                     <a href="{{$news->nearticlelink}}" target="_blank">
-                                        <img src="{{ $news->news_image_url }}" alt="News" class="news_image">
+                                        <img src="{{ $news->neimagelink }}" alt="News" class="news_image">
                                     </a>
                                     <h4>{{ $news->netitle }}</h4>
                                 </div>

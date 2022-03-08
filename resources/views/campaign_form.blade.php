@@ -9,6 +9,10 @@
 @section('header')
     <!-- Header -->
     <header>
+        <?php 
+        echo 1;
+        die();
+        ?>
         <nav class="navbar navbar-expand-lg navbar-light">
             <a class="navbar-brand" href="{{url('/')}}">
             <?php 
@@ -86,7 +90,7 @@
                         </ul>
                     </li>
                     @if (auth()->user()->canViewUserForClient($client))
-                    <li> <a href="{{ route('users.index', $client->encrypted_id) }}"><i class="fal fa-users"></i> Users</a> </li>
+                    <li> <a href="{{ route('users.index.user', $client->encrypted_id,'user') }}"><i class="fal fa-users"></i> Users</a> </li>
                     @endif
                     @if (auth()->user()->canCreateCampaign($client))
                     <li class="{{ isset($campaign) ? '' : 'active' }}"> <a href="{{ route('campaign.create', $client->encrypted_id) }}"><i class="fas fa-bullhorn"></i>New Campaigns</a> </li>

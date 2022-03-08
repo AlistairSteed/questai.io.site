@@ -12,7 +12,12 @@
         <nav class="navbar navbar-expand-lg navbar-light">
             <a class="navbar-brand" href="{{ route('client-selection') }}">
                 <?php 
+
+                if ($type == 'user') {
                     $enterprise = App\Models\Enterprise::find(enterpriseId());
+                } else if ($type == 'ent') {
+                    $enterprise = $client;
+                }
                 ?>
                 <b>{{$enterprise->enname}}</b>
                 <!-- <img src="{{ asset('assets/images/logo.png') }}" alt="Logo"> -->
@@ -80,10 +85,13 @@
                             <li> <a href="{{ route('client-overview', $client->encrypted_id.'#pills-campaigns') }}"><i class="fas fa-bullhorn"></i> Campaigns</a> </li>
                         </ul>
                     </li>
-                    <li class="active"> <a href="{{ route('users.index', $client->encrypted_id) }}"><i class="fal fa-users"></i> Users</a> </li>                    
-                    @if (auth()->user()->canCreateCampaign($client))
-                    <li> <a href="{{ route('campaign.create', $client->encrypted_id) }}"><i class="fas fa-bullhorn"></i>New Campaigns</a> </li>
+                    <li class="active"> <a href="{{ route('users.index.user', $client->encrypted_id) }}"><i class="fal fa-users"></i> Users</a> </li>                    
+                    @if ($type == 'user')
+                        @if (auth()->user()->canCreateCampaign($client))
+                           <li> <a href="{{ route('campaign.create', $client->encrypted_id) }}"><i class="fas fa-bullhorn"></i>New Campaigns</a> </li>
+                     @endif
                     @endif
+                   
                 </ul>
             </nav>
 
@@ -94,10 +102,12 @@
 
                     </div>
                 </div>
+                @if ($type == 'user')
                 @if (auth()->user()->canCreateUserForClient($client))
                 <div class="add-more">
                     <a href="javascript:;" class="circle50 add-more-user"><i class="fas fa-plus"></i></a>
                 </div>
+                @endif
                 @endif
             </div>
 
@@ -133,11 +143,25 @@
                         <input type="password" class="form-control user-password" name="user_password" placeholder="password"/>
                     </div>
                     <div class="form-group col-lg-6">
+                    <div class="col-lg-3">
+                    @if (auth()->user()->hasRole('super'))
+                        <h5>Admin Controls</h5>
                         <select class="form-control user-password">
-                            <option>Admin</option>
-                            <option>Enterprise</option>
-                            <option>Client</option>
+                            <option value="1">Admin</option>
+                            <option value="0">Not Admin</option>
                         </select>
+                    @endif
+                    </div>
+                    <div class="col-lg-3">
+                    @if (auth()->user()->hasRole('super') || auth()->user()->hasRole('admin'))
+
+                     <h5>Access Level</h5>
+                        <select class="form-control user-password">
+                             <option value="enterprise">Enterprise</option>
+                            <option value="client">Client</option>
+                        </select>
+                    </div>
+                    @endif
                     </div>
                     
                     <div class="form-group col-lg-6">
@@ -154,11 +178,12 @@
                                     <img src="{{ asset('assets/images/file.png') }}" alt="file">
                                 </a>
                             </button>
-                            
+                            @if ($type == 'user')
                             @if (auth()->user()->canDeleteUserForClient($client))
                             <a href="javascript:;" class="circle50 user-delete-btn">
                                 <img src="{{ asset('assets/images/delete.png') }}" alt="delete">
                             </a>
+                            @endif
                             @endif
                         </div>
                     </div>
@@ -184,8 +209,9 @@
                 $("#overlay").fadeIn(300);　
                 $.ajax({
                     method: 'get',
-                    url: app_url + '/users/indexAjax/' + '{{ $client_id }}'+'/'+'{{ $user_id}}',
+                    url: app_url + '/users/indexAjax/' + '{{ $client_id }}'+'/'+'{{ $user_id}}'+'/{{ $type }}',
                     success: function (res) {
+                        console.log(res);
                         res.data.map(function (section) {
                             console.log(section);
                             let item = ($(document).find('#user-block').clone()).show().removeAttr('id').attr('data-id', section.usid);

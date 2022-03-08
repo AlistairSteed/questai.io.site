@@ -148,7 +148,7 @@
                         </ul>
                     </li>
                     @if (auth()->user()->canViewUserForClient($client))
-                    <li> <a href="{{ route('users.index', $client->encrypted_id) }}"><i class="fas fa-users"></i> Users</a> </li>
+                    <li> <a href="{{ route('users.index.user', $client->encrypted_id) }}"><i class="fas fa-users"></i> Users</a> </li>
                     @endif
                     @if (auth()->user()->canCreateCampaign($client))
                     <li> <a href="{{ route('campaign.create', $client->encrypted_id) }}"><i class="fas fa-bullhorn"></i>New Campaigns</a> </li>
@@ -219,6 +219,7 @@
                                         </ul>
                                     </div>
                                     <div class="edition-right">
+                                    @if (auth()->user()->hasRole('super') || auth()->user()->hasRole('admin'))
                                         <ul>
                                                 @if (auth()->user()->canUpdateCampaign($campaign))
                                                 <li>
@@ -236,6 +237,7 @@
                                                 </li>
                                                 @endif
                                         </ul>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="approved" id="campaign-status">
@@ -246,7 +248,10 @@
                         </div>
                             @if (auth()->user()->canEndCampaign($campaign))
                             <div class="end-campaign">
+                            @if (auth()->user()->hasRole('super') || auth()->user()->hasRole('admin'))
+
                                 <a href="javascript:;" class="white-btn campaign-status-btn" id="end-campaign" data-string="end" data-id="9">End Campaign</a>
+                            @endif
                             </div>
                             @endif
                     </div>
@@ -358,6 +363,8 @@
                     <a href="#" class="read-more" data-toggle="modal" id="candidate_Id" data-target="#clientinformation">More Information <i class="fas fa-chevron-right"></i></a>
                     <div class="like-comment">
                         <div class="like-comment-left">         
+                        @if (auth()->user()->hasRole('super') || auth()->user()->hasRole('admin'))
+
                             @if (auth()->user()->canCandidateStatusChangeCampaign($campaign))
                                 <ul>
                                     <li>
@@ -371,13 +378,17 @@
                                     </li>
                                 </ul>
                             @endif
+                        @endif
                         </div>
                         <div class="like-comment-right">
+                        @if (auth()->user()->hasRole('super1') || auth()->user()->hasRole('admin1'))
+
                             <ul>                  
                                     <li>
                                         <a href="javascript:;" class="green candidateId" id="candidateId" title="comment" data-toggle="modal" data-target="#candidate_comment"><img src="{{ asset('assets/images/comment-green.png') }}" alt="comment" class="candidate_comment_img"></a>
                                     </li>
                             </ul>
+                        @endif
                         </div>
                     </div>
                 </div>

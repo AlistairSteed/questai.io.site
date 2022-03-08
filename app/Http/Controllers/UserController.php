@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 class UserController extends Controller
 {
     /**
@@ -33,18 +35,31 @@ class UserController extends Controller
      * @description: Return users list
      */
     public function index($client_id){
+
+        $user = Auth::user();
+        $user_id = \Auth::id();   
         $client = Client::findOrFailByEncryptedId($client_id);
         $client_id = $client->clid;
+        $type = 'user';
+        return view('users', compact('client_id','client','user_id','type'));
+
+    }
+    public function indexent($client_id){
+
         $user = Auth::user();
-        $user_id = \Auth::id();    
-        return view('users', compact('client_id','client','user_id'));
+        $user_id = \Auth::id();   
+        $client = Enterprise::findOrFailByEncryptedId($client_id);
+        $client_id = $client->enid;
+        $type = 'ent';
+        return view('users', compact('client_id','client','user_id','type'));
+
     }
 
     /**
      * @return \Illuminate\Http\JsonResponse
      * @description: Return all data of user
      */
-    public function indexAjax($client_id,$user_id){
+    public function indexAjax($client_id,$user_id,$type){
         $user = Auth::user();
         try {
             if ($user_id == 40 || ($user_id >= 46 && $user_id <=49)) {
@@ -59,6 +74,7 @@ class UserController extends Controller
                 })->orWhereHas('roles', function($query) {
                     $query->where('name','=','');
                 })->get();
+
             } else if ($user->hasRole(['super'])) {
                 $users = User::whereHas('roles', function ($query) {
                     $query->where('name', '=', 'admin');
@@ -78,7 +94,21 @@ class UserController extends Controller
                     $query->where('name','=','');
                 })->get();
             }
-
+            $count = 0;
+            $userarr = [];
+            foreach ($users as $use) {
+                if ($type == 'ent') {
+                    if ($use->usenterpriseid == $client_id) {
+                        $userar[] = $use;
+                    }
+                } else if ($type == 'user') {
+                    if ($use->usclientid == $client_id) {
+                        $userar[] = $use;
+                    }
+                }
+                $count++;
+            }
+        
             // $users = User::with(['userAccess' => function ($query1) use ($client_id)  {
             //     $query1->where('uaenterpriseid',enterpriseId())->where('uaclientid',$client_id)->where('uacampaignid',0);
             // }])->where('usclientid', $client_id)->orderBy('usid', 'asc')->get();
@@ -88,7 +118,7 @@ class UserController extends Controller
                 'message' => $e->getMessage() . $e->getFile() . $e->getLine(),
                 'data' => []], 400);
         }
-        return response()->json(['status' => 'success', 'data' => $users], 200);
+        return response()->json(['status' => 'success', 'data' => $userar], 200);
     }
     public function clients(){
         $user = auth()->user();

@@ -5,10 +5,14 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Client;
+use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 class RegisterController extends Controller
 {
     /*
@@ -39,6 +43,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        
     }
 
     /**
@@ -50,9 +55,17 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'usemail' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8'],
+            'usfirstname' => ['required', 'string', 'max:255'],
+            'uslastname' => ['required', 'string', 'max:255'],
+            'confirm' => ['required', 'string', 'min:8','same:password'],
+            'clemail' => ['required', 'string', 'email', 'max:255'],
+            'clname' => ['required', 'string', 'max:255'],
+            'clcity' => ['required', 'string', 'max:255'],
+            'clcounty' => ['required', 'string', 'max:255'],
+            'clpostcode' => ['required', 'string', 'max:12'],
+            'cltelno' => ['required', 'string', 'max:255'],
         ]);
     }
 
@@ -63,11 +76,61 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
+    {   /*
+            protected $fillable = [
+        'usid',
+        'usemail',
+        'usfirstname',
+        'uslastname',
+        'usenterpriseid',
+        'usclientid',
+        'ususertype',
+        'ushashpw',
+        'ususeraccess',
+    ];
+            'clid',
+        'clenterpriseid',
+        'clname',
+        'claddress1',
+        'claddress2',
+        'clcity',
+        'clcounty',
+        'clpostcode',
+        'clcountry',
+        'cltelno',
+        'clemail',
+        'clvideo',
+        'clcompanydesc',
+        'clcreatedby',
+        'cxlcreatedon',
+        'clupdatedby',
+        'clupdatedon',
+    */
+    $client = Client::create([
+        'clenterpriseid' => $data['usenterpriseid'],
+        'clname' => $data['clname'],
+        'claddress1' => $data['claddress1'],
+        'clcity' => $data['clcity'],
+        'clcounty' => $data['clcounty'],
+        'clpostcode' => $data['clpostcode'],
+        'clcountry' => $data['clcountry'],
+        'cltelno' => $data['cltelno'],
+        'clemail' => $data['clemail'],
+        'clvideo' => $data['clvideo'],
+        'clcompanydesc' => $data['clcompanydesc'],
+        'clcreatedby' => $data['usemail'],
+        'cxlcreatedon' => date("Y-m-d H:i:s"),
+    ]);
+    // print_r($client);
+    // die();
+        $user = User::create([
+            'usemail' => $data['usemail'],
+            'usfirstname' => $data['usfirstname'],
+            'uslastname' => $data['uslastname'],
             'password' => Hash::make($data['password']),
+            'usenterpriseid' => $data['usenterpriseid'],
+            'usclientid' =>$client->clid,
         ]);
+        $user->assignRole('client');
     }
 }

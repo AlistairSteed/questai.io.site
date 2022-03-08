@@ -44,15 +44,38 @@ class DashboardController extends Controller
     {        
         $user = Auth::user();
         $user_id = \Auth::id();
+    //     $users = User::whereHas('roles', function($query) {
+    //         $query->where('name','=','enterprise');
+    //     })->orWhereHas('roles', function($query) {
+    //         $query->where('name','=','client');
+    //     })->orWhereHas('roles', function($query) {
+    //         $query->where('name','=','');
+    //     })->get();
+    // $type = 'user';
+    // $client_id = '24';
+    // foreach ($users as $key=>$use) {
+    //     if ($type == 'ent') {
+    //         if ($use->usenterpriseid != $client_id) {
+    //             unset($users[$key]);
+    //         }
+    //     } else if ($type == 'user') {
+    //         if ($use->usclientid != $client_id) {
+    //             unset($users[$key]);
+    //         }
+    //     }
+    // }
+    // print_r($users);
+    // die();
         // $role = Role::create(['name' => 'super']);
         // $role = Role::create(['name' => 'admin']);
         // $role = Role::create(['name' => 'enterprise']);
         // $role = Role::create(['name' => 'client']);
         // $user->assignRole('super');
         // $user->assignRole('admin');
+        $ent_or_user = 'user';
         $clients = Client::where('clenterpriseid', enterpriseId())->get();
         $news_data = News::where('neenterpriseid', enterpriseId())->get();
-        return view('dashboard', compact('clients', 'news_data', 'user','user_id'));
+        return view('dashboard', compact('clients', 'news_data', 'user','user_id','ent_or_user'));
     }
 
     public function saconsole()

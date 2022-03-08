@@ -31,6 +31,7 @@
                         </h1>
                         <!-- <a href="{{ url('login-main') }}" class="primary-btn login-main"><span>Login</span></a> -->
                         <a  class="primary-btn login-main-btn"><span>Login</span></a>
+                        <a  class="primary-btn register-main-btn"><span>Register</span></a>
                         <p class="enterprise-id-pass mt-3"></p>
                     </div>
                 </div>
@@ -65,6 +66,7 @@
             const params = new URLSearchParams(window.location.search);
             if(params != null && params != '' && 'ent=') {
                 $('.login-main-btn').attr('href', 'login-main?'+params);
+                $('.register-main-btn').attr('href', 'register-main?'+params);
             }else{
                 $(".login-main-btn").addClass('disabled'); 
                                     

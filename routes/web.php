@@ -12,7 +12,7 @@ use \App\Http\Controllers\CampaignController;
 use \App\Http\Controllers\DashboardController;
 use \App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\StripePaymentController;
-use \App\Http\Controllers\Auth\ResetPasswordController;
+// use \App\Http\Controllers\Auth\ResetPasswordController;
 use \App\Http\Controllers\Auth\ForgotPasswordController;
 
 /*
@@ -45,6 +45,12 @@ Route::get('/login-main', function () {
       return view('auth.login_main', compact('enterprise'));
     }
 });
+Route::get('/register-main', function () {
+  $enterprise = Enterprise::findOrFail(request('ent'));
+  if($enterprise){
+    return view('auth.register_main', compact('enterprise'));
+  }
+});
 Route::get('saconsole', [DashboardController::class, 'saconsole'])->name('saconsole');
 Route::get('topadmin', [DashboardController::class, 'topadmin'])->name('topadmin');
 
@@ -53,9 +59,9 @@ Route::get('topadmin', [DashboardController::class, 'topadmin'])->name('topadmin
   | Routes for Both Users Without Authentication
   |--------------------------------------------------------------------------
 */
-Route::post('/public/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-Route::get('password/reset/{ent}', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-Route::post('password/reset', [ForgotPasswordController::class, 'reset'])->name('password.reset');
+Route::post('/public/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email.newname');
+Route::get('password/reset/{ent}', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request.newname');
+Route::post('password/reset', [ForgotPasswordController::class, 'reset'])->name('password.reset.newname');
 Route::get('password/reset/{token}/{enterpriseId}', [ForgotPasswordController::class, 'showResetForm'])->name('password_reset_submit');
 Route::get('thankyou', [ForgotPasswordController::class, 'thankYou'])->name('thankyou');
 
@@ -79,7 +85,7 @@ Route::any('payment/cancelled', [CheckoutController::class, 'paymentCancel']);
   |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('logout', [LoginController::class, 'logout'])->name('logout.newname');
     Route::get('edit-profile', [DashboardController::class, 'editProfile'])->name('edit.profile');
     Route::post('update-profile', [DashboardController::class, 'updateProfile'])->name('update.profile');
 
@@ -175,8 +181,9 @@ Route::group(['middleware' => 'auth'], function () {
      |--------------------------------------------------------------------------
    */
     Route::prefix('users')->group(function () {
-        Route::get('/{client_id}', [UserController::class, 'index'])->name('users.index');
-        Route::get('indexAjax/{client_id}/{user_id}', [UserController::class, 'indexAjax'])->name('users.indexAjax');
+        Route::get('/user/{client_id}', [UserController::class, 'index'])->name('users.index.user');
+        Route::get('/ent/{ent_id}', [UserController::class, 'indexent'])->name('users.index.ent');
+        Route::get('indexAjax/{client_id}/{user_id}/{type}', [UserController::class, 'indexAjax'])->name('users.indexAjax');
         Route::post('/store/{client_id}',  [UserController::class, 'store'])->name('users.store');
         Route::get('/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
     });

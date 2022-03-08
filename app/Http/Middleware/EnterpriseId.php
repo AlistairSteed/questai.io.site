@@ -26,6 +26,15 @@ class EnterpriseId
                 return redirect('/login?ent='.$enterpriseId->enid);
             }
             // return abort(404);            
+        } else if($request->route()->getName() == 'register'){
+            if(request('ent') !== null) {
+                return $next($request);
+            }
+            else{
+                $enterpriseId = Enterprise::first();
+                return redirect('/register?ent='.$enterpriseId->enid);
+            }
+            // return abort(404);            
         }
         return $next($request);
     }
