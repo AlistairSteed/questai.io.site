@@ -163,6 +163,14 @@ h2{font-size: 32px;margin-bottom: 30px;font-weight: 700;}
 .register-form h5 {
     clear:both;
 }
+.notification {
+background: #28a745;
+    text-align: center;
+    color:white;
+    margin-bottom: 15px;
+    padding: 5px;
+    border-radius: 25px;
+}
 /* header */
 header{    position: fixed;width: 100%;top: 0;background: #e8edeb;z-index: 100;}
 main{margin-top: 100px;}

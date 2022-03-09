@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Auth\Events\Registered;
+
+
 class RegisterController extends Controller
 {
     /*
@@ -33,8 +36,9 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
+    public $ent = '';
+   // protected $redirectTo = '/login?ent='.$ent;
+    
     /**
      * Create a new controller instance.
      *
@@ -42,10 +46,23 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
+       
         $this->middleware('guest');
         
     }
+    
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
 
+        event(new Registered($user = $this->create($request->all())));
+
+       // $this->guard()->login($user);
+    //this commented to avoid register user being auto logged in
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
+    }
     /**
      * Get a validator for an incoming registration request.
      *
@@ -76,36 +93,8 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {   /*
-            protected $fillable = [
-        'usid',
-        'usemail',
-        'usfirstname',
-        'uslastname',
-        'usenterpriseid',
-        'usclientid',
-        'ususertype',
-        'ushashpw',
-        'ususeraccess',
-    ];
-            'clid',
-        'clenterpriseid',
-        'clname',
-        'claddress1',
-        'claddress2',
-        'clcity',
-        'clcounty',
-        'clpostcode',
-        'clcountry',
-        'cltelno',
-        'clemail',
-        'clvideo',
-        'clcompanydesc',
-        'clcreatedby',
-        'cxlcreatedon',
-        'clupdatedby',
-        'clupdatedon',
-    */
+    {  
+
     $client = Client::create([
         'clenterpriseid' => $data['usenterpriseid'],
         'clname' => $data['clname'],
@@ -121,16 +110,22 @@ class RegisterController extends Controller
         'clcreatedby' => $data['usemail'],
         'cxlcreatedon' => date("Y-m-d H:i:s"),
     ]);
-    // print_r($client);
-    // die();
         $user = User::create([
             'usemail' => $data['usemail'],
             'usfirstname' => $data['usfirstname'],
             'uslastname' => $data['uslastname'],
-            'password' => Hash::make($data['password']),
+            'ushashpw' => Hash::make($data['password']),
             'usenterpriseid' => $data['usenterpriseid'],
             'usclientid' =>$client->clid,
         ]);
         $user->assignRole('client');
+        return $user;
+    }
+    protected function registered(Request $request, $user)
+    {
+        $request->session()->flash('notification', 'Thank you for registering, you can now log in with the details you provided.');
+        return redirect('/login?ent=' . $user->usenterpriseid);
+        //we can send users account formation email here or anything we want with users even fire that Registered event created earlier
+
     }
 }

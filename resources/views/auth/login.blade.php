@@ -4,6 +4,11 @@
     <!-- Hero Section -->
     <section class="login-page">
         <div class="container">
+        @if (session()->has('notification'))
+            <div class="notification">
+                {!! session('notification') !!}
+            </div>
+        @endif
             <div class="row login-main">
                 <div class="col-md-6">
                     <div class="white-bg border-radius login-box">

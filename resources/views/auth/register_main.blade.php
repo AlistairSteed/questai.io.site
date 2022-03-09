@@ -14,7 +14,7 @@
 
                         <h1>Sign Up</h1>
                         <h5>Personal Details</h5>
-                        <form class="login-form register-form" id="login-form" action="{{ route('register') }}" method="post" autocomplete="on" style="margin:5%;width:90%;margin-right:0px !important;">
+                        <form class="login-form register-form" id="register-form" action="{{ route('register') }}" method="post" autocomplete="on" style="margin:5%;width:90%;margin-right:0px !important;">
                             @csrf
                             <input type="hidden" name="usenterpriseid" class="form-control" value="{{$enterprise->enid}}">
                             <div class="form-group" style="width:96% !important;">
