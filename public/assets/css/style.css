@@ -14,7 +14,9 @@
     font-style: normal;
 
 }
-
+.ql-editor p {
+    margin-bottom:13px !important;
+}
 /* General CSS */
 html { -webkit-tap-highlight-color: transparent; -webkit-font-smoothing: antialiased }
 body{background-color: #e8edeb;font-family: 'Roboto', sans-serif;font-weight: 400;}
