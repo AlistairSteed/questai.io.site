@@ -225,7 +225,7 @@
                                                     <a href="{{ route('campaign.edit', [$client->encrypted_id, $campaign->encrypted_id]) }}" class="white-btn">Edit</a>
                                                 </li>
                                                 @endif
-                                                @if (auth()->user()->canApproveCampaign($campaign))
+                                                @if (auth()->user()->canApproveCampaign($campaign) && $campaign->castatus >0)
                                                 <li>
                                                     <a href="javascript:;" id="approve-campaign" data-id="4" data-string="approve"  class="white-btn campaign-status-btn">Approve</a>
                                                 </li>

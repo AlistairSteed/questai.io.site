@@ -74,7 +74,8 @@ class Campaign extends Model
         2 => 'Amended',
         3 => 'Waiting for approval',
         4 => 'approved',
-        5 => 'Advert closed',
+        5 => 'published',
+        7 => 'Advert closed',
         8 => 'Closing',
         9 => 'Closed',
     ];
