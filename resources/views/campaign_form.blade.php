@@ -95,35 +95,55 @@
             </nav>
             <div class="content">
                 <h2 class="text-primary">{{ isset($campaign) ? 'Edit Campaign' : 'New Campaign' }}</h2>
-                <div class="new-campaign border-radius white-bg">
-                    <form class="row" id="campaign-form" method="post" action="javascript:;" data-action="{{ isset($campaign) ? route('campaign.update', [$client->encrypted_id, $campaign->encrypted_id]) : route('campaign.store', $client->encrypted_id) }}" enctype="multipart/form-data" autocomplete="off">
+                <div class="new-campaign border-radius white-bg container">
+                    <form class="container" id="campaign-form" method="post" action="javascript:;" data-action="{{ isset($campaign) ? route('campaign.update', [$client->encrypted_id, $campaign->encrypted_id]) : route('campaign.store', $client->encrypted_id) }}" enctype="multipart/form-data" autocomplete="off">
                         @csrf
-                        <div class="form-group col-xl-6">                            
-                            <input type="text" class="form-control job-title cajobtitle" placeholder="@infoText('cajobtitle')" name="cajobtitle" value="{{ isset($campaign) ? $campaign->cajobtitle : old('cajobtitle') }}">
+                        <div class="row">
+                            <div class="form-group col">      
+                            <h5>Job Title</h5>                      
+                                <input type="text" class="form-control job-title cajobtitle" placeholder="@infoText('cajobtitle')" name="cajobtitle" value="{{ isset($campaign) ? $campaign->cajobtitle : old('cajobtitle') }}">
+                            </div>
+                            <div class="form-group col row">
+                                <div class="form-group col">
+                            <h5>City</h5>
+                                <input type="text" class="form-control cacity" placeholder="City" name="cacity" value="{{ isset($campaign) ? $campaign->cacity : old('cacity') }}">
+                            </div>
+                                <div class="form-group col">
+                                    <h5>Postcode</h5>
+                                 <input type="text" class="form-control capostcode" placeholder="Postcode" name="capostcode" value="{{ isset($campaign) ? $campaign->capostcode : old('capostcode') }}">
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group col-xl-6">
-                            <input type="text" class="form-control cacity" placeholder="@infoText('cacity')" name="cacity" value="{{ isset($campaign) ? $campaign->cacity : old('cacity') }}">
-                        </div>
+                        <div class="row">
                         <div class="form-group col-md-3 annual-salary ">
                             <h5>Annual Salary Range</h5>
                         </div>
                         <div class="form-group col-md-3 annual-salary">
-                            <input type="text" class="form-control casalaryfrom" placeholder="Form" name="casalaryfrom" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46' value="{{ isset($campaign) ? $campaign->casalaryfrom : old('casalaryfrom') }}">
+                        <h5>From</h5>
+                            <input type="text" class="form-control casalaryfrom" placeholder="From" name="casalaryfrom" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46' value="{{ isset($campaign) ? $campaign->casalaryfrom : old('casalaryfrom') }}">
                         </div>
                         <div class="form-group col-md-3 annual-salary">
+                         <h5>To</h5>
                             <input type="text" class="form-control casalaryto" placeholder="To" name="casalaryto" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46' value="{{ isset($campaign) ? $campaign->casalaryto : old('casalaryto') }}">
                         </div>
                         <div class="form-group col-md-3 annual-salary">
+                        <h5>OTE</h5>
                             <input type="text" class="form-control caote" placeholder="OTE" name="caote" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46' value="{{ isset($campaign) ? $campaign->caote : old('caote') }}">
                         </div>
+</div>
+                        
                         <div class="form-group col-md-12">
+                        <h5>Company Description</h5>
+
                             <div class="job-editor">
+
                                 <div class="jobPost-editor jobPost-editor6 ca-comp-desc">
                                     {!! isset($campaign) ? $campaign->cacompdesc : $client->clcompanydesc !!}
                                 </div>
                             </div>
                         </div>
                         <div class="form-group col-md-12">
+                        <h5>Job Description</h5>
                             <div class="job-editor">
                                 <div class="jobPost-editor jobPost-editor1 ca-job-desc">
                                     {!! isset($campaign) ? $campaign->cajobdesc : old('cajobdesc') !!}
@@ -131,6 +151,7 @@
                             </div>
                         </div>
                         <div class="form-group col-md-12">
+                        <h5>Essential Qualificiations</h5>
                             <div class="job-editor notrequired">
                                 <div class="jobPost-editor jobPost-editor3 ca-essential-qual">
                                     {!! isset($campaign) ? $campaign->caessentialqual : old('caessentialqual') !!}
@@ -138,6 +159,7 @@
                             </div>
                         </div>
                         <div class="form-group col-md-12">
+                        <h5>Desirable Qualificiations</h5>
                             <div class="job-editor notrequired">
                                 <div class="jobPost-editor jobPost-editor4 ca-desirable-qual">
                                     {!! isset($campaign) ? $campaign->cadesirablequal : old('cadesirablequal') !!}
@@ -145,6 +167,8 @@
                             </div>
                         </div>
                         <div class="form-group col-md-12">
+                        <h5>Additional Information</h5>
+
                             <div class="job-editor notrequired">
                                 <div class="jobPost-editor jobPost-editor5 ca-additional">
                                     {!! isset($campaign) ? $campaign->caadditional : old('caadditional') !!}
@@ -343,6 +367,7 @@
                     rules: {
                         cajobtitle: "required",
                         cacity: "required",
+                        capostcode: "required",
                         casalaryfrom: "required",
                         casalaryto: "required",
                         caote: "required",

@@ -33,9 +33,11 @@ class Candidate extends Model
 
     protected $appends = ['app_status', 'final_status_class', 'final_status'];
 
-
+    public $descarr = array('Created','Purchased','Waiting for Approval','Approved','Published','','Advert Closed','Closing','Closed');
     public function getAppStatusAttribute()
     {
+        $arr = array();
+
         if($this->caapplicationstatus == 0)
             $color = 'grey';
         elseif($this->caapplicationstatus == 1)
@@ -44,12 +46,14 @@ class Candidate extends Model
             $color = 'amber';
         else
             $color = 'red';
-
-        return $color;
+        $arr['color'] = $color;
+        $arr['desc'] = $descarr[$this->caapplicationstatus];
+        return $arr;
     }
 
     public function getFinalStatusClassAttribute()
     {
+        $arr = array();
         if($this->cafinalstatus == 00 || $this->cafinalstatus == 0)
             $color = 'bg-grey';
         elseif($this->cafinalstatus == 10 || $this->cafinalstatus == 20)
@@ -59,7 +63,9 @@ class Candidate extends Model
         else
             $color = 'bg-red';
 
-        return $color;
+        $arr['color'] = $color;
+        $arr['desc'] = $descarr[$this->caapplicationstatus];
+        return $arr;
     }
 
     public function attachmentProfile()
