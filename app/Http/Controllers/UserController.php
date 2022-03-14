@@ -263,4 +263,24 @@ class UserController extends Controller
         }
         return response()->json(['status' => 'success', 'data' => []], 200);
     }
+    public function clientcreate(array $data)
+    {  
+
+    $client = Client::create([
+        'clenterpriseid' => $data['usenterpriseid'],
+        'clname' => $data['clname'],
+        'claddress1' => $data['claddress1'],
+        'clcity' => $data['clcity'],
+        'clcounty' => $data['clcounty'],
+        'clpostcode' => $data['clpostcode'],
+        'clcountry' => $data['clcountry'],
+        'cltelno' => $data['cltelno'],
+        'clemail' => $data['clemail'],
+        'clvideo' => $data['clvideo'],
+        'clcompanydesc' => $data['clcompanydesc'],
+        'clcreatedby' => $data['usemail'],
+        'cxlcreatedon' => date("Y-m-d H:i:s"),
+    ]);
+        return $client;
+}
 }

@@ -82,8 +82,44 @@
                         </h1>
                     </div>
                     <div class="box-bottom">
-                    <h1>This is a client create page</h1>
-                        
+                    <h1>Create a Client</h1>
+                    <form class="login-form register-form" id="register-form" action="" method="post" autocomplete="on" style="margin:5%;width:90%;margin-right:0px !important;">
+                            @csrf
+                            <input type="hidden" name="usenterpriseid" class="form-control" value="{{$enterprise->enid}}">
+                            <h5>Client Details</h5>
+                            <div class="form-group" style="width:50%">
+                                <input type="text" name="clname" class="form-control" placeholder="Company Name">
+                            </div>
+                            <div class="form-group" style="width:50%;">
+                                <input type="text" name="claddress1" class="form-control" placeholder="Address">
+                            </div>
+                            <div class="form-group" style="width:50%;">
+                                <input type="text" name="clcity" class="form-control" placeholder="City">
+                            </div>
+                            <div class="form-group" style="width:50%;">
+                                <input type="text" name="clcounty" class="form-control" placeholder="County">
+                            </div>
+                            <div class="form-group" style="width:50%;">
+                                <input type="text" name="clcountry" class="form-control" placeholder="Country">
+                            </div>
+                            <div class="form-group" style="width:50%;">
+                                <input type="text" name="clpostcode" class="form-control" placeholder="Post Code">
+                            </div>
+                            <div class="form-group" style="width:50%;">
+                                <input type="text" name="cltelno" class="form-control" placeholder="Telephone number">
+                            </div>
+                            <div class="form-group" style="width:50%;">
+                                <input type="text" name="clemail" class="form-control" placeholder="Accounts email Address">
+                            </div>
+                            <h5>Optional at this stage</h5>
+                            <div class="form-group" style="width:96% !important;">
+                                <textarea name="clcompanydesc" class="form-control" placeholder="Client Description"></textarea>
+                            </div>
+                            <div class="form-group" style="width:96% !important;">
+                                <input type="text" name="clvideo" class="form-control" placeholder="Client Video Link">
+                            </div>
+                            <button type="submit" class="primary-btn"><span>Submit</span></button>
+                        </form>
                     </div>
                 </div>
 

@@ -189,7 +189,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::prefix('clients')->group(function () {
       Route::get('/', [UserController::class, 'clients'])->name('clients.index');
-      Route::get('/create', [UserController::class, 'clientscreate'])->name('clients.indexAjax');
+      Route::post('/create', [UserController::class, 'clientcreate'])->name('clients.indexAjax');
   });
 
     Route::get('attachment/file/{filename}', [CampaignController::class, 'fileResponse']);
