@@ -43,7 +43,7 @@
                                 </label>
                                 <a href="{{ route('password.request','?ent='.$enterprise->enid) }}" class="fotgot-pass">Forgotten Password?</a>
                             </div> -->
-                            <h5>Client Details</h5>
+                            <h5>Client Details (required)</h5>
                             <div class="form-group" style="width:50%">
                                 <input type="text" name="clname" class="form-control" placeholder="Company Name">
                             </div>
@@ -98,7 +98,7 @@
                 success: "valid"
             });
 
-            $('#login-form').validate({
+            $('#register-form').validate({
                 rules: {
                     usemail: "required",
                     password: "required",

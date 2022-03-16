@@ -66,6 +66,7 @@ Route::get('password/reset/{token}/{enterpriseId}', [ForgotPasswordController::c
 Route::get('thankyou', [ForgotPasswordController::class, 'thankYou'])->name('thankyou');
 
 //Webhooks Route
+Route::post('client-create', [DashboardController::class, 'clientcreate'])->name('clientscreate');
 
 Route::any('stripe/webhook', [CheckoutController::class, 'webhook'])->name('stripe.webhook');
 
@@ -187,9 +188,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/store/{client_id}',  [UserController::class, 'store'])->name('users.store');
         Route::get('/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
     });
-    Route::prefix('clients')->group(function () {
+    Route::prefix('/clients')->group(function () {
       Route::get('/', [UserController::class, 'clients'])->name('clients.index');
-      Route::post('/create', [UserController::class, 'clientcreate'])->name('clients.indexAjax');
+      Route::post('/create', [UserController::class, 'clientcreate'])->name('clients.create');
   });
 
     Route::get('attachment/file/{filename}', [CampaignController::class, 'fileResponse']);

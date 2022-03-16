@@ -52,7 +52,19 @@ $('#inputDate4').datepicker({
 
       // textarea js
       // box 1
-      var quill = new Quill('.jobPost-editor1', {
+      if (jQuery('.jobPost-editor1').length) {
+        var quill = new Quill('.jobPost-editor1', {
+          modules: {
+            toolbar: [
+              ['bold', 'italic', 'underline'],
+              [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+              ['link']
+            ]
+          },
+           placeholder: quillPlaceholderTexts.jobDescription,
+          theme: 'snow' // or 'bubble'
+        });
+       var quill = new Quill('.jobPost-editor6', {
          modules: {
            toolbar: [
              ['bold', 'italic', 'underline'],
@@ -60,56 +72,47 @@ $('#inputDate4').datepicker({
              ['link']
            ]
          },
-          placeholder: quillPlaceholderTexts.jobDescription,
+         placeholder: quillPlaceholderTexts.clientDescription,
          theme: 'snow' // or 'bubble'
        });
-      var quill = new Quill('.jobPost-editor6', {
-        modules: {
-          toolbar: [
-            ['bold', 'italic', 'underline'],
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            ['link']
-          ]
-        },
-        placeholder: quillPlaceholderTexts.clientDescription,
-        theme: 'snow' // or 'bubble'
-      });
-      // box 1
-      var quill = new Quill('.jobPost-editor3', {
-        modules: {
-          toolbar: [
-            ['bold', 'italic', 'underline'],
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            ['link']
-          ]
-        },
-        placeholder: quillPlaceholderTexts.essesntialSkillsAndQualifications,
-        theme: 'snow' // or 'bubble'
-      });
-      // box 1
-      var quill = new Quill('.jobPost-editor4', {
-        modules: {
-          toolbar: [
-            ['bold', 'italic', 'underline'],
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            ['link']
-          ]
-        },
-        placeholder: quillPlaceholderTexts.preferredSkillsAndQualifications,
-        theme: 'snow' // or 'bubble'
-      });
-      // box 1
-      var quill = new Quill('.jobPost-editor5', {
-        modules: {
-          toolbar: [
-            ['bold', 'italic', 'underline'],
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            ['link']
-          ]
-        },
-        placeholder: quillPlaceholderTexts.additionalInformation,
-        theme: 'snow' // or 'bubble'
-      });
+       // box 1
+       var quill = new Quill('.jobPost-editor3', {
+         modules: {
+           toolbar: [
+             ['bold', 'italic', 'underline'],
+             [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+             ['link']
+           ]
+         },
+         placeholder: quillPlaceholderTexts.essesntialSkillsAndQualifications,
+         theme: 'snow' // or 'bubble'
+       });
+       // box 1
+       var quill = new Quill('.jobPost-editor4', {
+         modules: {
+           toolbar: [
+             ['bold', 'italic', 'underline'],
+             [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+             ['link']
+           ]
+         },
+         placeholder: quillPlaceholderTexts.preferredSkillsAndQualifications,
+         theme: 'snow' // or 'bubble'
+       });
+       // box 1
+       var quill = new Quill('.jobPost-editor5', {
+         modules: {
+           toolbar: [
+             ['bold', 'italic', 'underline'],
+             [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+             ['link']
+           ]
+         },
+         placeholder: quillPlaceholderTexts.additionalInformation,
+         theme: 'snow' // or 'bubble'
+       });
+      }
+      
 
 
 

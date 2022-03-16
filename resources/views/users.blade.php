@@ -143,20 +143,20 @@
                         <input type="password" class="form-control user-password" name="user_password" placeholder="password"/>
                     </div>
                     <div class="form-group col-lg-6">
-                    <div class="col-lg-3">
+                    <div class="col-lg-6">
                     @if (auth()->user()->hasRole('super'))
                         <h5>Admin Controls</h5>
-                        <select class="form-control user-password">
+                        <select class="form-control user-admin" name="user_admin">
                             <option value="1">Admin</option>
                             <option value="0">Not Admin</option>
                         </select>
                     @endif
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-6">
                     @if (auth()->user()->hasRole('super') || auth()->user()->hasRole('admin'))
 
                      <h5>Access Level</h5>
-                        <select class="form-control user-password">
+                        <select class="form-control user-access" name="user_access">
                              <option value="enterprise">Enterprise</option>
                             <option value="client">Client</option>
                         </select>
@@ -219,6 +219,8 @@
                             item.find('.first-name').val(section.usfirstname);
                             item.find('.last-name').val(section.uslastname);
                             item.find('.user-email').val(section.usemail);
+                            item.find('.user-admin').val(section.admin);
+                            item.find('.user-access').val(section.enterprise);
                             item.find('.title-text').text(section.usfirstname + ' ' + section.uslastname);
                             item.find('.card-header button').attr('data-target', '#collapse'+section.usid);
                             item.find('.collapse-block').attr('id', 'collapse'+section.usid);
@@ -250,7 +252,7 @@
 
             $(document).on('click', '.user-save-btn', function (e){
                 var $this = $(this);
-                let form = $this.closest(".user-form");                
+                let form = $this.closest(".user-form");  
                 $("#overlay").fadeIn(300);　
                 form.validate({
                     ignore:'',

@@ -792,6 +792,11 @@
 
             function getCandidates(app_status, sort_by, search)
             {
+                // alert('{{ $id }}');
+                // alert('{{ $client_id }}');
+                // alert(app_status);
+                // alert(sort_by);
+                // alert(search);
                 $("#overlay").fadeIn(300);
                 $.ajax({
                     url: app_url + '/ajax-candidates',
@@ -805,7 +810,10 @@
                     },
                     success: function (res) {
                         // console.log(res.comments);
+                        var descarr = ['Created','Purchased','Waiting for Approval','Approved','Published','','Advert Closed','Closing','Closed'];
+
                         $(document).find('.append-candidates').html('');
+                        
                         res.data.map(function (section) {   
                             console.log(section);
                             let item = ($(document).find('#candidate-block').clone()).show().removeAttr('id').attr('data-id', section.caid);
@@ -838,6 +846,7 @@
                             } else {
                                 item.find('.application_status').css("background-color", "#e73100");   
                             }
+                            item.find('.status').append('<span>&nbsp;'+descarr[section.caapplicationstatus]+'</span>');
                             item.find('#candidateId').attr('data-id', section.caid);
                             item.find('#candidate_Id').attr('data-id', section.caid);
                             

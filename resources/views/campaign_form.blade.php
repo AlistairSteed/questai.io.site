@@ -9,10 +9,6 @@
 @section('header')
     <!-- Header -->
     <header>
-        <?php 
-        echo 1;
-        die();
-        ?>
         <nav class="navbar navbar-expand-lg navbar-light">
             <a class="navbar-brand" href="{{url('/')}}">
             <?php 
@@ -430,6 +426,7 @@
                     var formData = {
                         cajobtitle: $('.cajobtitle').val(),
                         cacity: $('.cacity').val(),
+                        capostcode: $('.capostcode').val(),
                         casalaryfrom: $('.casalaryfrom').val(),
                         casalaryto: $('.casalaryto').val(),
                         caote: $('.caote').val(),

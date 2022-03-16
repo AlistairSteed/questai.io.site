@@ -94,7 +94,27 @@ class DashboardController extends Controller
         }
     }
     
+    public function clientcreate(Request $data)
+    {  
+        $user = auth()->user();
+    $client = Client::create([
+        'clenterpriseid' => $data->input('usenterpriseid'),
+        'clname' => $data->input('clname'),
+        'claddress1' => $data->input('claddress1'),
+        'clcity' => $data->input('clcity'),
+        'clcounty' => $data->input('clcounty'),
+        'clpostcode' => $data->input('clpostcode'),
+        'clcountry' => $data->input('clcountry'),
+        'cltelno' => $data->input('cltelno'),
+        'clemail' => $data->input('clemail'),
+        'clvideo' => $data->input('clvideo'),
+        'clcompanydesc' => $data->input('clcompanydesc'),
+        'clcreatedby' => $user->usemail,
+        'cxlcreatedon' => date("Y-m-d H:i:s"),
+    ]);
+    return redirect()->back()->with('success', 'Client created successfully!');
 
+}
     public function updateProfile(Request $request)
     {
         try {
@@ -221,12 +241,11 @@ class DashboardController extends Controller
     }
 
     public function ajaxGetCandidates(Request $request){
-
+    
         try {
         $inputs = $request->all();
 
         $candidates = Candidate::where('cacaid', $inputs['campaign_id']);
-
             if (isset($inputs['app_status']) && ($inputs['app_status'] || $inputs['app_status'] == 0)) {
                 $candidates = $candidates->where('caapplicationstatus', $inputs['app_status']);
             }

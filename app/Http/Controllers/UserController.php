@@ -96,7 +96,17 @@ class UserController extends Controller
             }
             $count = 0;
             $userarr = [];
-            foreach ($users as $use) {
+            foreach ($users as &$use) {
+                if ($use->hasRole(['admin'])) {
+                    $use->admin = 1;
+                } else {
+                    $use->admin = 0;
+                }
+                if ($use->hasRole(['enterprise'])) {
+                    $use->enterprise = "enterprise";
+                } else {
+                    $use->enterprise = "client";
+                }
                 if ($type == 'ent') {
                     if ($use->usenterpriseid == $client_id) {
                         $userar[] = $use;
@@ -133,9 +143,8 @@ class UserController extends Controller
      */
     public function store(Request $request, $client_id){
         try {
-            $client = Client::findOrFailByEncryptedId($client_id);
-            $client_id = $client->clid;   
-            
+            // $client = Client::findOrFailByEncryptedId($client_id);
+            // $client_id = $client->clid;   
             $inputs = $request->all();
 
             if (isset($inputs['id']) && $inputs['id']){
@@ -160,31 +169,42 @@ class UserController extends Controller
                     'uslastname' => $inputs['last_name'],
                     'usemail' => $inputs['user_email'],
                     'usenterpriseid' => enterpriseId(),
-                    'usclientid' => $client_id
+                    //'usclientid' => $client_id
                 ];
-
+                if ($inputs['user_admin'] == 1) {
+                   $user->assignRole('admin');
+                } else {
+                    $user->removeRole('admin');
+                }
+                if ($inputs['user_access'] == "enterprise") {
+                    $user->assignRole('enterprise');
+                    $user->removeRole('client');
+                } else {
+                    $user->assignRole('client');
+                    $user->removeRole('enterprise');
+                }
                 if (isset($inputs['user_password']) && $inputs['user_password']){
                     $user_data['ushashpw'] = bcrypt($inputs['user_password']);
                 }
                 $user->update($user_data);
 
-                $useraccess = UserAccess::where('uausid',$inputs['id'])->where('uaenterpriseid',enterpriseId())->where('uaclientid',$client_id)->where('uacampaignid',0);
+                // $useraccess = UserAccess::where('uausid',$inputs['id'])->where('uaenterpriseid',enterpriseId())->where('uaclientid',$client_id)->where('uacampaignid',0);
 
-                if ($useraccess){
-                    $useraccess->delete();
-                }
+                // if ($useraccess){
+                //     $useraccess->delete();
+                // }
 
-                if($request->view_all_campaigns !== null){
-                    $user_access_data = [
-                        'uausid' => $user->usid,
-                        'uaenterpriseid' => enterpriseId(),
-                        'uaclientid' => $client_id,
-                        'uacampaignid' => 0,
-                        'uaaccess' => 2,
-                    ];
+                // if($request->view_all_campaigns !== null){
+                //     $user_access_data = [
+                //         'uausid' => $user->usid,
+                //         'uaenterpriseid' => enterpriseId(),
+                //         'uaclientid' => $client_id,
+                //         'uacampaignid' => 0,
+                //         'uaaccess' => 2,
+                //     ];
 
-                    $useraccess = UserAccess::create($user_access_data);
-                }
+                //     $useraccess = UserAccess::create($user_access_data);
+                // }
             } else {
                 $type = 'store';
 
@@ -193,7 +213,7 @@ class UserController extends Controller
                     'uslastname' => $inputs['last_name'],
                     'usemail' => $inputs['user_email'],
                     'usenterpriseid' => enterpriseId(),
-                    'usclientid' => $client_id,
+                   // 'usclientid' => $client_id,
                     'ushashpw' => bcrypt($inputs['user_password']),
                     'ussusertype' => 3,
                     'ususeraccess' => 2
@@ -221,17 +241,17 @@ class UserController extends Controller
                 $user = User::create($user_data);
 
                 
-                if($request->view_all_campaigns !== null){
-                    $user_access_data = [
-                        'uausid' => $user->usid,
-                        'uaenterpriseid' => enterpriseId(),
-                        'uaclientid' => $client_id,
-                        'uacampaignid' => 0,
-                        'uaaccess' => 2,
-                    ];
+                // if($request->view_all_campaigns !== null){
+                //     $user_access_data = [
+                //         'uausid' => $user->usid,
+                //         'uaenterpriseid' => enterpriseId(),
+                //         'uaclientid' => $client_id,
+                //         'uacampaignid' => 0,
+                //         'uaaccess' => 2,
+                //     ];
 
-                    $useraccess = UserAccess::create($user_access_data);
-                }
+                //     $useraccess = UserAccess::create($user_access_data);
+                // }
 
             }
 
@@ -263,24 +283,5 @@ class UserController extends Controller
         }
         return response()->json(['status' => 'success', 'data' => []], 200);
     }
-    public function clientcreate(array $data)
-    {  
-
-    $client = Client::create([
-        'clenterpriseid' => $data['usenterpriseid'],
-        'clname' => $data['clname'],
-        'claddress1' => $data['claddress1'],
-        'clcity' => $data['clcity'],
-        'clcounty' => $data['clcounty'],
-        'clpostcode' => $data['clpostcode'],
-        'clcountry' => $data['clcountry'],
-        'cltelno' => $data['cltelno'],
-        'clemail' => $data['clemail'],
-        'clvideo' => $data['clvideo'],
-        'clcompanydesc' => $data['clcompanydesc'],
-        'clcreatedby' => $data['usemail'],
-        'cxlcreatedon' => date("Y-m-d H:i:s"),
-    ]);
-        return $client;
-}
+    
 }

@@ -64,6 +64,76 @@
                 </div>
             </div>
         </nav>
+        @section('scripts')
+
+
+    <script>
+        $(document).ready(function (){
+            $.validator.setDefaults({
+                debug: true,
+                success: "valid"
+            });
+            $('#login-form').validate({
+                rules: {
+
+                    clemail: "required",
+                    claddress1: "required",
+                    clname: "required",
+                    clcity: "required",
+                    clcounty: "required",
+                    clcountry: "required",
+                    clpostcode: "required",
+                    cltelno: "required",
+                    clemail: "required",
+                    usenterpriseid: "required",
+                },
+                messages: {},
+                submitHandler: function (form) {
+                    form.submit();
+                    $("#overlay").fadeIn(300);　
+                }, errorPlacement: function (error, element) {
+                    console.log(element, error);
+                    $("#overlay").fadeOut(300);
+                    // element.parent().append(error);
+                }
+            });
+
+            $(document).on('click', '.pass-image', function (){
+
+                if ($(this).hasClass('hide')){
+                    $(this).toggleClass('hide').closest('.pass').find('input').attr('type', 'text');
+                    $(this).attr('src', '{{ asset('assets/images/user.png') }}')
+                } else {
+                    $(this).toggleClass('hide').closest('.pass').find('input').attr('type', 'password');
+                    $(this).attr('src', '{{ asset('assets/images/view.png') }}')
+                }
+            });
+
+        });
+            // $('#update-profile-form').validate({
+            //     rules: {
+            //         usfirstname: "required",
+            //         uslastname: "required",
+            //         password: {
+            //             "required": false
+            //         },
+            //         cpassword: {
+            //             equalTo: "#password",
+            //         }
+
+            //     },submitHandler: function (form) {
+            //         form.submit();
+            //         $("#overlay").fadeIn(300);
+            //     }, errorPlacement: function (error, element) {
+            //         console.log(element, error);
+            //         $("#overlay").fadeOut(300);
+            //     }
+            // });
+      //  })
+
+    </script>
+@endsection
+
     </header>
     <!-- End Header -->
 @endsection
@@ -83,10 +153,10 @@
                     </div>
                     <div class="box-bottom">
                     <h1>Create a Client</h1>
-                    <form class="login-form register-form" id="register-form" action="" method="post" autocomplete="on" style="margin:5%;width:90%;margin-right:0px !important;">
+                    <form class="login-form register-form" id="login-form" action="{{ url('client-create') }}" method="post" autocomplete="on" style="margin:5%;width:90%;margin-right:0px !important;">
                             @csrf
                             <input type="hidden" name="usenterpriseid" class="form-control" value="{{$enterprise->enid}}">
-                            <h5>Client Details</h5>
+                            <h5>Client Details (required)</h5>
                             <div class="form-group" style="width:50%">
                                 <input type="text" name="clname" class="form-control" placeholder="Company Name">
                             </div>
@@ -131,31 +201,3 @@
 
 @endsection
 
-@section('scripts')
-
-
-    <script>
-        $(document).ready(function (){
-            $('#update-profile-form').validate({
-                rules: {
-                    usfirstname: "required",
-                    uslastname: "required",
-                    password: {
-                        "required": false
-                    },
-                    cpassword: {
-                        equalTo: "#password",
-                    }
-
-                },submitHandler: function (form) {
-                    form.submit();
-                    $("#overlay").fadeIn(300);
-                }, errorPlacement: function (error, element) {
-                    console.log(element, error);
-                    $("#overlay").fadeOut(300);
-                }
-            });
-        })
-
-    </script>
-@endsection
