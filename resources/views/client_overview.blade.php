@@ -202,14 +202,15 @@
                                         </div>
                                     </div>
                                     <?php 
+               
                                         if($campaign->castatus == 0){
-                                            $style = "#f7b900";
-                                        }else if($campaign->castatus == 3){
-                                            $style = "#f7b900;";
-                                        }else if($campaign->castatus == 4){
-                                            $style = "##4f8d49;";
+                                            $style = "#b3b3b3";
+                                        }else if($campaign->castatus == 1){
+                                            $style = "#4f8d4a;";
+                                        }else if($campaign->castatus == 5){
+                                            $style = "#0090ff;";
                                         }else if($campaign->castatus == 9){
-                                            $style = "#12A3C6;";
+                                            $style = "#ff0900;";
                                         }else{
                                             $style = "";                                            
                                         }

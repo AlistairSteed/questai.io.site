@@ -46,7 +46,7 @@ class DashboardController extends Controller
         $user_id = \Auth::id();
     //     $users = User::whereHas('roles', function($query) {
     //         $query->where('name','=','enterprise');
-    //     })->orWhereHas('roles', function($query) {
+    //     })->orWhereHas('s', function($query) {
     //         $query->where('name','=','client');
     //     })->orWhereHas('roles', function($query) {
     //         $query->where('name','=','');

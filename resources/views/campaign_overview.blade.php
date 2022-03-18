@@ -368,13 +368,13 @@
                             @if (auth()->user()->canCandidateStatusChangeCampaign($campaign))
                                 <ul>
                                     <li>
-                                        <a href="javascript:;" class="green status-btn gsbtn" data-id="20" title="Accepted"><i class="fas fa-thumbs-up"></i></a>
+                                        <a href="javascript:;" class="green status-btn gsbtn" data-id="10" title="Accepted"><i class="fas fa-thumbs-up"></i></a>
                                     </li>
                                     <li>
-                                        <a href="javascript:;" class="yellow status-btn ysbtn" data-id="35" title="Good Candidate Rejected"><i class="fas fa-thumbs-down"></i></a>
+                                        <a href="javascript:;" class="yellow status-btn ysbtn" data-id="30" title="Good Candidate Rejected"><i class="fas fa-thumbs-down"></i></a>
                                     </li>
                                     <li>
-                                        <a href="javascript:;" class="red status-btn rsbtn" data-id="45" title="Rejected"><i class="fas fa-thumbs-down"></i></a>
+                                        <a href="javascript:;" class="red status-btn rsbtn" data-id="35" title="Rejected"><i class="fas fa-thumbs-down"></i></a>
                                     </li>
                                 </ul>
                             @endif
@@ -842,11 +842,14 @@
                                 item.find('.application_status').css("background-color", "#4f8d4a");     
 
                             } else if (section.caapplicationstatus == 5) {
-                                item.find('.application_status').css("background-color", "#ffc52e");   
+                                item.find('.application_status').css("background-color", "#0090ff");   
+                            } else if (section.caapplicationstatus == 9) {
+                                item.find('.application_status').css("background-color", "#ff0900");   
                             } else {
                                 item.find('.application_status').css("background-color", "#e73100");   
                             }
-                            item.find('.status').append('<span>&nbsp;'+descarr[section.caapplicationstatus]+'</span>');
+                            item.find('.application_status').html(descarr[section.caapplicationstatus]);
+                            //item.find('.status').append('<span>&nbsp;'+descarr[section.caapplicationstatus]+'</span>');
                             item.find('#candidateId').attr('data-id', section.caid);
                             item.find('#candidate_Id').attr('data-id', section.caid);
                             

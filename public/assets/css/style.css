@@ -137,6 +137,7 @@ h2{font-size: 32px;margin-bottom: 30px;font-weight: 700;}
 .login{background-color: #184c43;position: relative;background-image: url('../images/login-bg.png');background-repeat: no-repeat;}
 .login-page{padding: 170px 0;}
 .login-page .login-main{align-items: center;}
+.login-main-btn {margin-bottom:10px;}
 .login-page .login-box{padding: 137px 60px;text-align: center;}
 .login-page .login-box h1{color: #184c43;font-weight: bold;margin-bottom: 50px;font-size: 40px;font-family: 'helveticabold';}
 .login-page .login-box h1 span{font-size: 30px;}
@@ -440,7 +441,7 @@ input[type="date"]:before
 .client-overview .filter .filter-body .filter-left ul li a i{margin-left: 10px;    font-size: 14px;}
 .client-overview .filter .filter-body .filter-right{display: flex;justify-content: flex-end;}
 .client-overview .company-box.campaing-box .box .box-top h4{min-height: auto;}
-.client-overview .company-box.campaing-box .box .box-bottom span{font-size: 12px;margin-bottom: 10px;}
+.client-overview .company-box.campaing-box .box .box-bottom span{font-size: 12px;margin-bottom: 12px;}
 .client-overview .company-box.campaing-box .box .box-bottom span.status{position: relative;padding-right: 20px;}
 /* .client-overview .company-box.campaing-box .box .box-bottom span.status:after{position: absolute;content: "";height: 16px;width: 16px;border-radius: 5px;right: 0;} */
 /* .client-overview .company-box.campaing-box .box.green .box-bottom span.status:after{background-color: #4f8d4a;}
@@ -765,13 +766,14 @@ button.btn.btn-secondary.white-btn.cart-cancel-btn:focus {
     box-shadow: none !important;
 }
 span.application_status {
-    position: absolute;
+    position:absolute;
+    right:0px;
     content: "";
-    height: 16px;
-    width: 16px;
+    padding:5px;
     border-radius: 5px;
     right: 0;
     background-color: #b3b3b3;
+    color: #fff !important;
 }
 
 #overlay{	
