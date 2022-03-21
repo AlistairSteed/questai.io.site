@@ -14,19 +14,20 @@
 
                         <h1>Sign Up</h1>
                         <h5>Personal Details</h5>
-                        <form class="login-form register-form" id="register-form" action="{{ route('register') }}" method="post" autocomplete="on" style="margin:5%;width:90%;margin-right:0px !important;">
+                        <form class="login-form register-form" id="login-form" action="{{ route('register') }}" method="post" autocomplete="on" style="margin:5%;width:90%;margin-right:0px !important;">
                             @csrf
+                            <div class="validation-msg"></div>
                             <input type="hidden" name="usenterpriseid" class="form-control" value="{{$enterprise->enid}}">
                             <div class="form-group" style="width:96% !important;">
                                 <input type="email" name="usemail" class="form-control" placeholder="Email Address">
                             </div>
                             
                             <div class="form-group pass" style="width:50%;">
-                                <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                <input type="password" name="password" class="form-control password" id="exampleInputPassword1" placeholder="Password (min 8 chars)">
                                 <img src="{{ asset('assets/images/view.png') }}" alt="view" class="pass-image hide">
                             </div>
                             <div class="form-group pass" style="width:50%;">
-                                <input type="password" name="confirm" class="form-control" id="exampleInputPassword2" placeholder="Confirm Password">
+                                <input type="password" name="confirm" class="form-control confirm" id="exampleInputPassword2" placeholder="Confirm Password">
                                 <img src="{{ asset('assets/images/view.png') }}" alt="view" class="pass-image hide">
                             </div>
                             <div class="form-group" style="width:50%">
@@ -75,7 +76,7 @@
                             <div class="form-group" style="width:96% !important;">
                                 <input type="text" name="clvideo" class="form-control" placeholder="Client Video Link">
                             </div>
-                            <button type="submit" class="primary-btn"><span>Submit</span></button>
+                            <button type="submit" class="reg-submit primary-btn"><span>Submit</span></button>
                         </form>
                     </div>
 
@@ -92,28 +93,35 @@
     <script>
 
         $(document).ready(function () {
-
             $.validator.setDefaults({
                 debug: true,
                 success: "valid"
             });
-
-            $('#register-form').validate({
+           
+            $('#login-form').validate({
                 rules: {
                     usemail: "required",
-                    password: "required",
+                    password: {
+                        required: true,
+                        minlength : 8
+                    },
+                    confirm: {
+                        minlength : 8,
+                        equalTo : "#exampleInputPassword1"
+                    },
+                    usfirstname: "required",
+                    uslastname: "required",
                     clemail: "required",
-                    confirm: "required",
+                    clemail: "required",
                     claddress1: "required",
                     clname: "required",
                     clcity: "required",
                     clcounty: "required",
+                    clcountry: "required",
                     clpostcode: "required",
                     cltelno: "required",
                     clemail: "required",
                     usenterpriseid: "required",
-                    usfirstname: "required",
-                    uslastname: "required",
                 },
                 messages: {},
                 submitHandler: function (form) {
@@ -125,7 +133,6 @@
                     // element.parent().append(error);
                 }
             });
-
             $(document).on('click', '.pass-image', function (){
 
                 if ($(this).hasClass('hide')){
@@ -136,7 +143,7 @@
                     $(this).attr('src', '{{ asset('assets/images/view.png') }}')
                 }
             });
-
+        
         });
 
     </script>

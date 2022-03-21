@@ -151,7 +151,7 @@
                     </div>
                     <div class="tab-pane fade" id="pills-latest-activity" role="tabpanel" aria-labelledby="pills-latest-activity-tab">
                         <div class="company-box">
-                            @foreach($activities as $activity)
+                            @foreach($activities->reverse() as $activity)
                                 <div class="box-outer">
                                     <a href="javascript:;" class="box">
                                         <div class="box-top">
@@ -163,10 +163,11 @@
                                         </div>
                                         <div class="box-bottom">
                                             <div class="info">
-                                                <span><img src="{{ asset('assets/images/location.png') }}" alt="location">London</span>
+                                                <span><img src="{{ asset('assets/images/location.png') }}" alt="location">{{ @$activity->Campaign->cacity }}</span>
                                                 <span><img src="{{ asset('assets/images/information.png') }}" alt="information">
                                                 <p class="audetails">{{ $activity->audetails }}</p>
                         </span>
+                                
                                             </div>
                                         </div>
                                     </a>
@@ -202,14 +203,15 @@
                                         </div>
                                     </div>
                                     <?php 
+               
                                         if($campaign->castatus == 0){
-                                            $style = "#f7b900";
-                                        }else if($campaign->castatus == 3){
-                                            $style = "#f7b900;";
-                                        }else if($campaign->castatus == 4){
-                                            $style = "##4f8d49;";
+                                            $style = "#b3b3b3";
+                                        }else if($campaign->castatus == 1){
+                                            $style = "#4f8d4a;";
+                                        }else if($campaign->castatus == 5){
+                                            $style = "#0090ff;";
                                         }else if($campaign->castatus == 9){
-                                            $style = "#12A3C6;";
+                                            $style = "#ff0900;";
                                         }else{
                                             $style = "";                                            
                                         }

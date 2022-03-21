@@ -46,7 +46,7 @@ class DashboardController extends Controller
         $user_id = \Auth::id();
     //     $users = User::whereHas('roles', function($query) {
     //         $query->where('name','=','enterprise');
-    //     })->orWhereHas('roles', function($query) {
+    //     })->orWhereHas('s', function($query) {
     //         $query->where('name','=','client');
     //     })->orWhereHas('roles', function($query) {
     //         $query->where('name','=','');
@@ -169,8 +169,9 @@ class DashboardController extends Controller
 
         try {
             $client = Client::findOrFailByEncryptedId($id);
-            $activities = Audit::with('Campaign:caid,cajobtitle')->where('auclientid', $client->clid)->get();
-            $campaigns = Campaign::where('caclientid', $client->clid)->orderBy('cacreatedon','desc')->get();
+            $activities = Audit::with('Campaign:caid,cajobtitle,cacity')->where('auclientid', $client->clid)->get();
+
+            $campaigns = Campaign::where('caclientid', $client->clid)->orderBy('cacreatedon','asc')->get();
 
             $campaigns = $campaigns->map(function ($item) {
                 $item->total_candidates = Candidate::where('cacaid', $item->caid)->count();
@@ -308,12 +309,16 @@ class DashboardController extends Controller
             $inputs = $request->all();
             $candidate = Candidate::findOrFail($inputs['can_id']);
 
-            if ($candidate){
+            if ($candidate && $candidate->cafinalstatus == 0){
                 $candidate->update([
                     'cafinalstatus' => $inputs['status']
                 ]);
+                return response()->json(['status' => 'success', 'data' => $candidate], 200);
+            } else if ($candidate->cafinalstatus != 0) {
+                return response()->json(['status' => 'error',
+                'message' => 'This status has already been set.',
+                'data' => []], 400);
             }
-            return response()->json(['status' => 'success', 'data' => $candidate], 200);
         } catch (\Exception $e){
             Log::info('Ajax candidate status change error => ' . $e->getMessage() . $e->getFile() . $e->getLine());
             return response()->json(['status' => 'error',

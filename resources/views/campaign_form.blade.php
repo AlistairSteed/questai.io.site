@@ -120,15 +120,15 @@
                         </div>
                         <div class="form-group col-md-3 annual-salary">
                         <h5>From</h5>
-                            <input type="text" class="form-control casalaryfrom" placeholder="From" name="casalaryfrom" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46' value="{{ isset($campaign) ? $campaign->casalaryfrom : old('casalaryfrom') }}">
+                            <input type="text" class="form-control casalaryfrom" placeholder="From" name="casalaryfrom" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46' value="{{ isset($campaign) ? number_format(intval($campaign->casalaryfrom)) : old('casalaryfrom') }}">
                         </div>
                         <div class="form-group col-md-3 annual-salary">
                          <h5>To</h5>
-                            <input type="text" class="form-control casalaryto" placeholder="To" name="casalaryto" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46' value="{{ isset($campaign) ? $campaign->casalaryto : old('casalaryto') }}">
+                            <input type="text" class="form-control casalaryto" placeholder="To" name="casalaryto" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46' value="{{ isset($campaign) ? number_format(intval($campaign->casalaryto)) : old('casalaryto') }}">
                         </div>
                         <div class="form-group col-md-3 annual-salary">
                         <h5>OTE</h5>
-                            <input type="text" class="form-control caote" placeholder="OTE" name="caote" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46' value="{{ isset($campaign) ? $campaign->caote : old('caote') }}">
+                            <input type="text" class="form-control caote" placeholder="OTE" name="caote" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46' value="{{ isset($campaign) ? number_format(intval($campaign->caote)) : old('caote') }}">
                         </div>
 </div>
                         
@@ -176,8 +176,8 @@
                             </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <select class="form-control cajobtypeid" name="cajobtypeid" id="cajobtypeid">
-                               <option value="">Select Job Type</option>
+                            <select class="form-control cajobtypeid" name="cajobtypeid">
+                               <option value="" selected disabled>Select Job Type</option>
                                @foreach($job_types as $job_type)
                                     @php
                                         $select = isset($campaign) && $job_type->jtid == $campaign->cajobtypeid ? 'selected' : '';
@@ -321,9 +321,9 @@
         $(document).ready(function() {
             // $('#cajobtypeid').select2();
             
-            $('.casalaryfrom').mask("#,##0.00", {reverse: true});
-            $('.casalaryto').mask("#,##0.00", {reverse: true});
-            $('.caote').mask("#,##0.00", {reverse: true});
+            // $('.casalaryfrom').mask("#,##0.00", {reverse: true});
+            // $('.casalaryto').mask("#,##0.00", {reverse: true});
+            // $('.caote').mask("#,##0.00", {reverse: true});
         });
         $(document).ready(function (){
             var app_url = '{{ url('/') }}';
@@ -378,6 +378,7 @@
                         caexperienceid: "required",
                         check1: "required",
                         check2: "required",
+                        
 
                     }, errorPlacement: function (error, element) {
                         $("#overlay").fadeOut(300);

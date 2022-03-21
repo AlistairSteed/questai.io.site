@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Client;
+use App\Models\UserAccess;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -119,6 +120,15 @@ class RegisterController extends Controller
             'usclientid' =>$client->clid,
         ]);
         $user->assignRole('client');
+        $user_access_data = [
+            'uausid' => $user->usid,
+            'uaenterpriseid' => $data['usenterpriseid'],
+            'uaclientid' => $client->clid,
+            'uacampaignid' => 0,
+            'uaaccess' => 1,
+        ];
+
+        $useraccess = UserAccess::create($user_access_data);
         return $user;
     }
     protected function registered(Request $request, $user)

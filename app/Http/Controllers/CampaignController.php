@@ -87,9 +87,10 @@ class CampaignController extends Controller
         try {            
             $client = Client::findOrFailByEncryptedId($client_id);
             $client_id = $client->clid;
-            
+
             $type = 'store';
             $inputs = $request->all();
+            $job = Jobtype::findOrFail(intval($inputs['cajobtypeid']));
             $inputs['caenterpriseid'] = enterpriseId();
             $inputs['caclientid'] = $client_id;
             $inputs['casalaryfrom'] = str_replace(',', '', $request->casalaryfrom);
@@ -97,7 +98,11 @@ class CampaignController extends Controller
             $inputs['caote'] = str_replace(',', '', $request->caote);
             $inputs['castatus'] = 0;
             $inputs['calink'] = 0;
+            $inputs['capostcode'] = $request->capostcode;
             $inputs['cadate'] = Carbon::now()->format('Y-m-d H:i:s');
+            $inputs['cacreatedby'] = Auth::user()->usemail;
+            $inputs['cajobvideo1'] = $job->jtvideo;
+            $inputs['cacreatedon'] = Carbon::now()->format('Y-m-d H:i:s');
             $campaign = Campaign::create($inputs);
 
             // Add to Basket and Basketline
@@ -156,11 +161,16 @@ class CampaignController extends Controller
             $type = 'update';
             $inputs = $request->all();
             $campaign = Campaign::findOrFail($id);
+            $job = Jobtype::findOrFail(intval($inputs['cajobtypeid']));
             $inputs['casalaryfrom'] = str_replace(',', '', $request->casalaryfrom);
             $inputs['casalaryto'] = str_replace(',', '', $request->casalaryto);
             $inputs['caote'] = str_replace(',', '', $request->caote);
             $inputs['caremote'] = (int)$inputs['caremote'];
+            $inputs['cajobvideo1'] = $job->jtvideo;
             $inputs['caprivate'] = (int)$inputs['caprivate'];
+            $inputs['capostcode'] = $request->capostcode;
+            $inputs['caupdatedby'] = Auth::user()->usemail;
+            $inputs['caupdatedon'] = Carbon::now()->format('Y-m-d H:i:s');
             $campaign->update($inputs);
 
         } catch (\Exception $e){
