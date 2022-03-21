@@ -366,6 +366,7 @@
                         @if (auth()->user()->hasRole('super') || auth()->user()->hasRole('admin'))
 
                             @if (auth()->user()->canCandidateStatusChangeCampaign($campaign))
+                            
                                 <ul>
                                     <li>
                                         <a href="javascript:;" class="green status-btn gsbtn" data-id="10" title="Accepted"><i class="fas fa-thumbs-up"></i></a>
@@ -381,7 +382,7 @@
                         @endif
                         </div>
                         <div class="like-comment-right">
-                        @if (auth()->user()->hasRole('super1') || auth()->user()->hasRole('admin1'))
+                        @if (auth()->user()->hasRole('super') || auth()->user()->hasRole('admin'))
 
                             <ul>                  
                                     <li>
@@ -877,11 +878,11 @@
             $(document).on('click', '.status-btn', function (){
 
                 var status = $(this).attr('data-id');
-                if(status == 20){
+                if(status == 10){
                     var status_name = 'Accepted';
-                }else if(status == 35){
+                }else if(status == 30){
                     var status_name = 'Good Candidate Rejected';                    
-                }else if(status == 45){
+                }else if(status == 35){
                     var status_name = 'Rejected';                    
                 }
                 var can_id = $(this).closest('.candidate-block').attr('data-id');

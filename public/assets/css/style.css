@@ -304,6 +304,7 @@ filter: drop-shadow(0px 12px 12px rgba(15,0,69,0.11));    padding: 0;max-width: 
 .sidebar-content .content .company-box{display: flex;flex-wrap: wrap; margin: 0 -15px;}
 .company-box .box-outer{padding: 0 15px;flex: 0 0 20%;max-width: 20%;margin-bottom: 30px;}
 .company-box .box{border-radius: 20px;filter: drop-shadow(0px 12px 12px rgba(15,0,69,0.11));background-color: #ffffff;    height: 100%;display: inline-block;width: 100%;display: flex;flex-direction: column;justify-content: space-between;}
+#pills-latest-activity .company-box .box {justify-content:start;}
 .company-box .box .box-top{padding: 18px 20px;border-bottom: 1px solid #bccac8;}
 .company-box .box .box-top h4{text-align: center;font-size: 16px;color: #174b43;font-weight: 500;}
 .company-box .box .box-bottom{padding: 30px 20px;}

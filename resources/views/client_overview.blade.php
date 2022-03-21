@@ -151,7 +151,7 @@
                     </div>
                     <div class="tab-pane fade" id="pills-latest-activity" role="tabpanel" aria-labelledby="pills-latest-activity-tab">
                         <div class="company-box">
-                            @foreach($activities as $activity)
+                            @foreach($activities->reverse() as $activity)
                                 <div class="box-outer">
                                     <a href="javascript:;" class="box">
                                         <div class="box-top">
@@ -163,10 +163,11 @@
                                         </div>
                                         <div class="box-bottom">
                                             <div class="info">
-                                                <span><img src="{{ asset('assets/images/location.png') }}" alt="location">London</span>
+                                                <span><img src="{{ asset('assets/images/location.png') }}" alt="location">{{ @$activity->Campaign->cacity }}</span>
                                                 <span><img src="{{ asset('assets/images/information.png') }}" alt="information">
                                                 <p class="audetails">{{ $activity->audetails }}</p>
                         </span>
+                                
                                             </div>
                                         </div>
                                     </a>

@@ -106,9 +106,8 @@
                         minlength : 8
                     },
                     confirm: {
-                        required: true,
                         minlength : 8,
-                        equalTo : "#password"
+                        equalTo : "#exampleInputPassword1"
                     },
                     usfirstname: "required",
                     uslastname: "required",
